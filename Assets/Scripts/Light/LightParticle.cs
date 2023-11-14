@@ -33,7 +33,7 @@ namespace TrapLight.Light
                 rigidbody2D.gravityScale -= speed/ maxGravityTime;
                 yield return null;
             }
-            rigidbody2D.gravityScale = 1;
+            rigidbody2D.gravityScale = 0.1f;
         }
     }
 }
