@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Light
   - Black
+  - Line
   layers:
   - Default
   - TransparentFX
