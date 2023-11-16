@@ -163,3 +163,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  explosiveItemPrefab: {fileID: 8881776959453301221, guid: 5e94548f6a7740a40b9265d7394d2a96, type: 3}
