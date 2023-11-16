@@ -35,7 +35,8 @@ namespace TrapLight.Explosion
                     Destroy(hit.gameObject);
             }
             Destroy(gameObject);
-            explosionEffect.Play();
+       
+            Destroy(explosionEffect.gameObject, 1f);
         }
 
         private IEnumerator StartAfterDelay()

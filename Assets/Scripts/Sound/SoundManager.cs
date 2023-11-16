@@ -9,7 +9,8 @@ namespace TrapLight.Sound
     {
         ButtonClick,
         Music,
-        Explosion
+        Explosion,
+        SetExplosive
     }
     public class SoundManager : MonoBehaviour
     {

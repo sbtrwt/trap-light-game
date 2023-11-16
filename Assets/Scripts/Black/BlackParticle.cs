@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TrapLight.Sound;
 using UnityEngine;
 namespace TrapLight.Light
 {
@@ -100,7 +101,10 @@ namespace TrapLight.Light
         private void CreateExplosive()
         {
             if (explosiveItemPrefab != null)
-                Instantiate(explosiveItemPrefab, transform.position, Quaternion.identity);
+            {
+                SoundManager.Instance.Play(SoundType.SetExplosive);
+                Instantiate(explosiveItemPrefab, transform.position, Quaternion.identity); 
+            }
         }
     }
 }
