@@ -21,7 +21,7 @@ namespace TrapLight.Sound
         public bool IsSfxOn = true;
 
         [Range(0, 1)]
-        public float musicVolume = 0.5f;
+        public float musicVolume = 0.1f;
 
         [Range(0, 1)]
         public float sfxVolume = 0.5f;

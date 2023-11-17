@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TrapLight.Sound;
+using TrapLight.Light;
 
 namespace TrapLight.Explosion
 {
@@ -32,7 +33,19 @@ namespace TrapLight.Explosion
             {
 
                 if (hit.gameObject.CompareTag(GlobalConstant.LIGHT_TAG))
+                {
                     Destroy(hit.gameObject);
+                    GameController.Instance.DecreaseLightParticleCount();
+                }
+
+                if (hit.gameObject.CompareTag(GlobalConstant.BLACK_TAG))
+                {
+                    BlackParticle black = hit.gameObject.GetComponent<BlackParticle>();
+                    if(black != null)
+                    {
+                        black.AddHealth(-20);
+                    }
+                }
             }
             Destroy(gameObject);
        

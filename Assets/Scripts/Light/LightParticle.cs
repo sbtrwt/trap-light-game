@@ -12,7 +12,6 @@ namespace TrapLight.Light
         private void Start()
         {
             rigidbody2D = GetComponent<Rigidbody2D>();
-           
         }
 
         private void Update()

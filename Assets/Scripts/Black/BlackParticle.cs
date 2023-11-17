@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using TrapLight.Sound;
+using TrapLight.UI;
 using UnityEngine;
 namespace TrapLight.Light
 {
@@ -14,11 +16,20 @@ namespace TrapLight.Light
         private Vector3 startPos;    // Start position of line
         private Vector3 endPos;    // End position of line
         [SerializeField] private GameObject explosiveItemPrefab;
+        [SerializeField] private int explosiveItemCount = 5;
+        [SerializeField] private int health = 100;
+        [SerializeField] private int MAX_HEALTH = 100;
+        [SerializeField] private TextMeshPro healthText;
+        [SerializeField] private TextMeshProUGUI bombText;
+        [SerializeField] private int level = 1;
+        [SerializeField] private int EXPLOSIVE_COUNT = 4;
+        private List<GameObject> wallLines;
+        private List<GameObject> wallColliders;
 
         private void Start()
         {
             rb2D = GetComponent<Rigidbody2D>();
-
+            RefreshHealthText();
         }
         private void Update()
         {
@@ -30,12 +41,18 @@ namespace TrapLight.Light
         private void OnCollisionEnter2D(Collision2D collision)
         {
             //Debug.Log(collision.gameObject.tag);
+            if (collision.gameObject.CompareTag(GlobalConstant.LIGHT_TAG))
+            {
+                Debug.Log(collision.gameObject.tag);
+                if(AddHealth(-1) <= 0)
+                {
+                    UIController.Instance.SetGameOverUI(true);
+                }
+            }
         }
 
         void HandleInput()
         {
-
-
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (line == null)
@@ -73,9 +90,12 @@ namespace TrapLight.Light
 
         private void CreateLine()
         {
+            
             line = new GameObject("Line").AddComponent<LineRenderer>();
             line.material = new Material(Shader.Find("Diffuse"));
             line.useWorldSpace = true;
+            if (wallLines == null) wallLines = new List<GameObject>();
+            wallLines.Add(line.gameObject);
         }
 
         // Following method adds collider to created line
@@ -95,15 +115,68 @@ namespace TrapLight.Light
                 angle *= -1;
             }
             angle = Mathf.Rad2Deg * Mathf.Atan(angle);
-            col.transform.Rotate(0, 0, angle);
+
+            if (col)
+            {
+                col.transform.Rotate(0, 0, angle);
+                if (wallColliders == null) wallColliders = new List<GameObject>();
+                wallColliders.Add(col.gameObject);
+            }
         }
 
         private void CreateExplosive()
         {
-            if (explosiveItemPrefab != null)
+            if (explosiveItemPrefab != null && explosiveItemCount > 0)
             {
                 SoundManager.Instance.Play(SoundType.SetExplosive);
-                Instantiate(explosiveItemPrefab, transform.position, Quaternion.identity); 
+                Instantiate(explosiveItemPrefab, transform.position, Quaternion.identity);
+                explosiveItemCount--;
+                RefreshBombText();
+            }
+        }
+
+        public int AddHealth(int val)
+        {
+            this.health += val;
+            if (this.health <= 0)
+            {
+                this.health = 0;
+            }
+            if (this.health > MAX_HEALTH)
+            {
+                this.health =  MAX_HEALTH;
+            }
+            RefreshHealthText();
+            return health;       
+        }
+        private void RefreshHealthText()
+        {
+            if (healthText != null)
+                healthText.text = health.ToString();
+        }
+        private void RefreshBombText()
+        {
+            if (bombText != null)
+                bombText.text = explosiveItemCount.ToString();
+        }
+
+        public void UpgradeLevel(int waveCount)
+        {
+            level = waveCount;
+            AddHealth(MAX_HEALTH);
+            explosiveItemCount = EXPLOSIVE_COUNT * level;
+            RefreshBombText();
+        }
+
+        public void DeleteAllWalls()
+        {
+           for(int i=0; i<wallLines.Count; i++)
+            {
+                Destroy(wallLines[i]);
+            }
+            for (int i = 0; i < wallColliders.Count; i++)
+            {
+                Destroy(wallColliders[i]);
             }
         }
     }
