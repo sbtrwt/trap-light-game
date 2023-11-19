@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TrapLight.Light;
 using UnityEngine.SceneManagement;
+using System;
+using TrapLight.UI;
 
-namespace TrapLight {
+namespace TrapLight
+{
     public class GameController : MonoBehaviour
     {
         public static GameController Instance { get; private set; }
         [SerializeField] private GameObject lightParticlePrefab;
         [SerializeField] private int waveCount = 1;
-        [SerializeField] private int lightParticleCount = 5;
+        [SerializeField] private int lightParticleCount = 1;
         [SerializeField] private List<GameObject> lightParticles;
         [SerializeField] public BlackParticle blackParticle;
-        [SerializeField] private int currentLightParticleCount = 5;
+        [SerializeField] private int currentLightParticleCount = 2;
+        [SerializeField] private int currentExplosionCount = 0;
 
         private void Awake()
         {
@@ -33,10 +37,17 @@ namespace TrapLight {
         }
         public void ResetWave(int wave)
         {
+            currentExplosionCount = 0;
+            DeleteAllLightParticles();
             waveCount = wave;
             InitLightParticle();
             blackParticle.UpgradeLevel(waveCount);
             blackParticle.DeleteAllWalls();
+            UIController.Instance.SetGameOverUI(false);
+        }
+        public void ResetWave()
+        {
+            ResetWave(waveCount);
         }
 
         private void InitLightParticle()
@@ -45,23 +56,44 @@ namespace TrapLight {
             currentLightParticleCount = lightParticleCount * waveCount;
             for (int i = 0; i < currentLightParticleCount; i++)
             {
-                lightParticles.Add(Instantiate(lightParticlePrefab, new Vector3(Random.Range(GlobalConstant.MIN_WIDTH, GlobalConstant.MAX_WIDTH), Random.Range(GlobalConstant.MIN_HEIGHT, GlobalConstant.MAX_HEIGHT)), Quaternion.identity));
+                lightParticles.Add(Instantiate(lightParticlePrefab, new Vector3(UnityEngine.Random.Range(GlobalConstant.MIN_WIDTH, GlobalConstant.MAX_WIDTH), UnityEngine.Random.Range(GlobalConstant.MIN_HEIGHT, GlobalConstant.MAX_HEIGHT)), Quaternion.identity));
             }
         }
 
+        public void ValidateGame()
+        {
+            if (blackParticle.GetMaxExplosiveCount() == currentExplosionCount && blackParticle.GetExplosiveCount() == 0 && currentLightParticleCount > 0 )
+            {
+                Debug.Log("game over");
+                UIController.Instance.SetGameOverUI(true);
+            }
+        }
+
+        public void IncrementExplosionCount() 
+        {
+            currentExplosionCount++;
+        }
         public void DecreaseLightParticleCount()
         {
             currentLightParticleCount--;
-            if(currentLightParticleCount <= 0)
+            if (currentLightParticleCount <= 0)
             {
                 ResetWave(++waveCount);
             }
         }
 
-        public int GetLightParticleCount() 
+        public int GetLightParticleCount()
         {
             return lightParticleCount;
         }
-      
+
+        public void DeleteAllLightParticles()
+        {
+            if (lightParticles != null)
+                for (int i = 0; i < lightParticles.Count; i++)
+                {
+                    Destroy(lightParticles[i]);
+                }
+        }
     }
 }

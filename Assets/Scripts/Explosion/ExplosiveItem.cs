@@ -46,16 +46,20 @@ namespace TrapLight.Explosion
                         black.AddHealth(-20);
                     }
                 }
+               
             }
             Destroy(gameObject);
        
             Destroy(explosionEffect.gameObject, 1f);
+
         }
 
         private IEnumerator StartAfterDelay()
         {
             yield return new WaitForSeconds(4);
             Detonate();
+            GameController.Instance.IncrementExplosionCount();
+            GameController.Instance.ValidateGame();
         }
 
         private void DrawCircle(int steps, float radius)

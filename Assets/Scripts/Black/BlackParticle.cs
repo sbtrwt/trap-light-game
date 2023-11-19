@@ -16,13 +16,13 @@ namespace TrapLight.Light
         private Vector3 startPos;    // Start position of line
         private Vector3 endPos;    // End position of line
         [SerializeField] private GameObject explosiveItemPrefab;
-        [SerializeField] private int explosiveItemCount = 5;
+        [SerializeField] private int explosiveItemCount = 3;
         [SerializeField] private int health = 100;
         [SerializeField] private int MAX_HEALTH = 100;
         [SerializeField] private TextMeshPro healthText;
         [SerializeField] private TextMeshProUGUI bombText;
         [SerializeField] private int level = 1;
-        [SerializeField] private int EXPLOSIVE_COUNT = 4;
+        [SerializeField] private int EXPLOSIVE_COUNT = 3;
         private List<GameObject> wallLines;
         private List<GameObject> wallColliders;
 
@@ -44,7 +44,7 @@ namespace TrapLight.Light
             if (collision.gameObject.CompareTag(GlobalConstant.LIGHT_TAG))
             {
                 Debug.Log(collision.gameObject.tag);
-                if(AddHealth(-1) <= 0)
+                if (AddHealth(-1) <= 0)
                 {
                     UIController.Instance.SetGameOverUI(true);
                 }
@@ -90,10 +90,11 @@ namespace TrapLight.Light
 
         private void CreateLine()
         {
-            
+
             line = new GameObject("Line").AddComponent<LineRenderer>();
             line.material = new Material(Shader.Find("Diffuse"));
             line.useWorldSpace = true;
+
             if (wallLines == null) wallLines = new List<GameObject>();
             wallLines.Add(line.gameObject);
         }
@@ -116,7 +117,7 @@ namespace TrapLight.Light
             }
             angle = Mathf.Rad2Deg * Mathf.Atan(angle);
 
-            if (col)
+            if (col != null && !float.IsNaN(angle))
             {
                 col.transform.Rotate(0, 0, angle);
                 if (wallColliders == null) wallColliders = new List<GameObject>();
@@ -144,10 +145,10 @@ namespace TrapLight.Light
             }
             if (this.health > MAX_HEALTH)
             {
-                this.health =  MAX_HEALTH;
+                this.health = MAX_HEALTH;
             }
             RefreshHealthText();
-            return health;       
+            return health;
         }
         private void RefreshHealthText()
         {
@@ -170,14 +171,26 @@ namespace TrapLight.Light
 
         public void DeleteAllWalls()
         {
-           for(int i=0; i<wallLines.Count; i++)
-            {
-                Destroy(wallLines[i]);
-            }
-            for (int i = 0; i < wallColliders.Count; i++)
-            {
-                Destroy(wallColliders[i]);
-            }
+            if (wallLines != null)
+                for (int i = 0; i < wallLines.Count; i++)
+                {
+                    Destroy(wallLines[i]);
+                }
+
+            if (wallColliders != null)
+                for (int i = 0; i < wallColliders.Count; i++)
+                {
+                    Destroy(wallColliders[i]);
+                }
+        }
+
+        public int GetExplosiveCount()
+        {
+            return explosiveItemCount;
+        }
+        public int GetMaxExplosiveCount()
+        {
+            return (EXPLOSIVE_COUNT * level);
         }
     }
 }

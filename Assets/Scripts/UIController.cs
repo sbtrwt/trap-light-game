@@ -28,7 +28,7 @@ namespace TrapLight.UI
 
         private void OnClickStart()
         {
-            SceneManager.LoadScene(0);
+            GameController.Instance.ResetWave();
         }
 
         public void SetGameOverUI(bool flag)

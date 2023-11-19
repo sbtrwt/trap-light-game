@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 960, y: 600}
@@ -886,10 +886,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightParticlePrefab: {fileID: 813092619164269456, guid: aaeeee5b1ba5bb74badc0e59a25e024d, type: 3}
   waveCount: 1
-  lightParticleCount: 5
+  lightParticleCount: 1
   lightParticles: []
   blackParticle: {fileID: 993557694}
-  currentLightParticleCount: 5
+  currentLightParticleCount: 2
 --- !u!1 &787686409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,6 +1403,14 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1966367754}
+    - target: {fileID: 2539763510271067898, guid: 7888cf61d4cc8734ebaebe62fe15eaf9, type: 3}
+      propertyPath: EXPLOSIVE_COUNT
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539763510271067898, guid: 7888cf61d4cc8734ebaebe62fe15eaf9, type: 3}
+      propertyPath: explosiveItemCount
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2803513869722317292, guid: 7888cf61d4cc8734ebaebe62fe15eaf9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.82
