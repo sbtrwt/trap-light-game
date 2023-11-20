@@ -16,13 +16,13 @@ namespace TrapLight.Light
         private Vector3 startPos;    // Start position of line
         private Vector3 endPos;    // End position of line
         [SerializeField] private GameObject explosiveItemPrefab;
-        [SerializeField] private int explosiveItemCount = 3;
+        [SerializeField] private int explosiveItemCount = 2;
         [SerializeField] private int health = 100;
         [SerializeField] private int MAX_HEALTH = 100;
         [SerializeField] private TextMeshPro healthText;
         [SerializeField] private TextMeshProUGUI bombText;
         [SerializeField] private int level = 1;
-        [SerializeField] private int EXPLOSIVE_COUNT = 3;
+        [SerializeField] private int EXPLOSIVE_COUNT = 2;
         private List<GameObject> wallLines;
         private List<GameObject> wallColliders;
 
@@ -46,6 +46,7 @@ namespace TrapLight.Light
                 Debug.Log(collision.gameObject.tag);
                 if (AddHealth(-1) <= 0)
                 {
+                    DeleteAllWalls();
                     UIController.Instance.SetGameOverUI(true);
                 }
             }
@@ -165,7 +166,7 @@ namespace TrapLight.Light
         {
             level = waveCount;
             AddHealth(MAX_HEALTH);
-            explosiveItemCount = EXPLOSIVE_COUNT * level;
+            explosiveItemCount = GetMaxExplosiveCount();
             RefreshBombText();
         }
 

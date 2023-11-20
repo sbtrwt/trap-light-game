@@ -5,6 +5,7 @@ using TrapLight.Light;
 using UnityEngine.SceneManagement;
 using System;
 using TrapLight.UI;
+using TMPro;
 
 namespace TrapLight
 {
@@ -13,12 +14,12 @@ namespace TrapLight
         public static GameController Instance { get; private set; }
         [SerializeField] private GameObject lightParticlePrefab;
         [SerializeField] private int waveCount = 1;
-        [SerializeField] private int lightParticleCount = 1;
+        [SerializeField] private int lightParticleCount = 3;
         [SerializeField] private List<GameObject> lightParticles;
         [SerializeField] public BlackParticle blackParticle;
-        [SerializeField] private int currentLightParticleCount = 2;
+        [SerializeField] private int currentLightParticleCount = 3;
         [SerializeField] private int currentExplosionCount = 0;
-
+        [SerializeField] private TextMeshProUGUI waveText;
         private void Awake()
         {
             if (Instance == null)
@@ -44,6 +45,7 @@ namespace TrapLight
             blackParticle.UpgradeLevel(waveCount);
             blackParticle.DeleteAllWalls();
             UIController.Instance.SetGameOverUI(false);
+            RefreshWaveText();
         }
         public void ResetWave()
         {
@@ -62,9 +64,11 @@ namespace TrapLight
 
         public void ValidateGame()
         {
-            if (blackParticle.GetMaxExplosiveCount() == currentExplosionCount && blackParticle.GetExplosiveCount() == 0 && currentLightParticleCount > 0 )
+            
+            if (blackParticle.GetMaxExplosiveCount() <= currentExplosionCount && blackParticle.GetExplosiveCount() <= 0 && currentLightParticleCount > 0 )
             {
-                Debug.Log("game over");
+                //Debug.Log("game over");
+                blackParticle.DeleteAllWalls();
                 UIController.Instance.SetGameOverUI(true);
             }
         }
@@ -94,6 +98,11 @@ namespace TrapLight
                 {
                     Destroy(lightParticles[i]);
                 }
+        }
+        private void RefreshWaveText()
+        {
+            if (waveText != null)
+                waveText.text ="Wave : "+ waveCount.ToString();
         }
     }
 }
