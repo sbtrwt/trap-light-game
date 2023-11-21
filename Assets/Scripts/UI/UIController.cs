@@ -12,6 +12,7 @@ namespace TrapLight.UI
         public static UIController Instance { get; private set; }
         [SerializeField] private Button buttonRestart;
         [SerializeField] private GameObject gameOverUI;
+        [SerializeField] private Button buttonLobby;
         private void Awake()
         {
             if (Instance == null)
@@ -24,6 +25,7 @@ namespace TrapLight.UI
         private void Start()
         {
             buttonRestart.onClick.AddListener(OnClickStart);
+            buttonLobby.onClick.AddListener(OnClickLobby);
         }
 
         private void OnClickStart()
@@ -34,6 +36,10 @@ namespace TrapLight.UI
         public void SetGameOverUI(bool flag)
         {
             gameOverUI.SetActive(flag);
+        }
+        private void OnClickLobby()
+        {
+            SceneManager.LoadScene(GlobalConstant.LOBBY_INDEX);
         }
     }
 }

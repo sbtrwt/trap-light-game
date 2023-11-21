@@ -20,36 +20,48 @@ namespace TrapLight
         [SerializeField] private int currentLightParticleCount = 3;
         [SerializeField] private int currentExplosionCount = 0;
         [SerializeField] private TextMeshProUGUI waveText;
+        [SerializeField] private Animator waveTextAnimator;
+
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+            //else
+            //{
+            //    Destroy(gameObject);
+            //}
         }
         private void Start()
         {
-            ResetWave(waveCount);
+           StartCoroutine( ResetWave(waveCount));
         }
-        public void ResetWave(int wave)
+        public IEnumerator ResetWave(int wave)
         {
+            waveCount = wave;
+            RefreshWaveText();
+            blackParticle.DeleteAllWalls();
             currentExplosionCount = 0;
             DeleteAllLightParticles();
-            waveCount = wave;
+
+            if (waveTextAnimator)
+                waveTextAnimator.SetBool("IsWaveShow", true);
+
+            UIController.Instance.SetGameOverUI(false);
+            yield return new WaitForSeconds(4);
+
+           
             InitLightParticle();
             blackParticle.UpgradeLevel(waveCount);
-            blackParticle.DeleteAllWalls();
-            UIController.Instance.SetGameOverUI(false);
-            RefreshWaveText();
+
+            if (waveTextAnimator)
+                waveTextAnimator.SetBool("IsWaveShow", false);
         }
         public void ResetWave()
         {
-            ResetWave(waveCount);
+            StartCoroutine( ResetWave(waveCount));
         }
 
         private void InitLightParticle()
@@ -82,7 +94,7 @@ namespace TrapLight
             currentLightParticleCount--;
             if (currentLightParticleCount <= 0)
             {
-                ResetWave(++waveCount);
+              StartCoroutine(  ResetWave(++waveCount));
             }
         }
 
