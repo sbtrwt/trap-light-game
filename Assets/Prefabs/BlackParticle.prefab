@@ -184,7 +184,8 @@ GameObject:
   - component: {fileID: 1626782303216323661}
   - component: {fileID: 8580953356607822114}
   - component: {fileID: 2539763510271067898}
-  m_Layer: 0
+  - component: {fileID: 2614322644793033095}
+  m_Layer: 3
   m_Name: BlackParticle
   m_TagString: Black
   m_Icon: {fileID: 0}
@@ -227,7 +228,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 73b9a14af3408d84f9a2879fae70acd9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -343,3 +344,20 @@ MonoBehaviour:
   bombText: {fileID: 0}
   level: 1
   EXPLOSIVE_COUNT: 5
+--- !u!114 &2614322644793033095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8011943305815443022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: a62210341578da74f8d0d663b49647c4, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0

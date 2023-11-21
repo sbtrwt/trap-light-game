@@ -18,7 +18,7 @@ namespace TrapLight.Explosion
             circleRange = GetComponent<LineRenderer>();
 
             DrawCircle(circleSteps, radius);
-            StartCoroutine("StartAfterDelay");
+            StartCoroutine(StartAfterDelay());
         }
         private void Detonate()
         {
@@ -35,6 +35,7 @@ namespace TrapLight.Explosion
                 if (hit.gameObject.CompareTag(GlobalConstant.LIGHT_TAG))
                 {
                     Destroy(hit.gameObject);
+                    if (GameController.Instance != null)
                     GameController.Instance.DecreaseLightParticleCount();
                 }
 
@@ -46,16 +47,24 @@ namespace TrapLight.Explosion
                         black.AddHealth(-20);
                     }
                 }
+               
             }
             Destroy(gameObject);
        
             Destroy(explosionEffect.gameObject, 1f);
+
         }
 
         private IEnumerator StartAfterDelay()
         {
             yield return new WaitForSeconds(4);
             Detonate();
+            if (GameController.Instance != null)
+            {
+
+                GameController.Instance.IncrementExplosionCount();
+                GameController.Instance.ValidateGame();
+            }
         }
 
         private void DrawCircle(int steps, float radius)

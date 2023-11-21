@@ -14,5 +14,9 @@ namespace TrapLight
         public const string LIGHT_TAG = "Light";
         public const string BLACK_TAG = "Black";
         public const string LINE_TAG = "Line";
+
+        public const int LOBBY_INDEX = 0;
+        public const int MAIN_INDEX = 1;
+        public const int TUTORIAL_INDEX = 2;
     }
 }
