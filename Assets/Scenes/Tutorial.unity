@@ -987,6 +987,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1122132361}
     - target: {fileID: 5984248781249313971, guid: b282c8b46e995b54385a8713dcd60066, type: 3}
+      propertyPath: buttonLobby
+      value: 
+      objectReference: {fileID: 143765655}
+    - target: {fileID: 5984248781249313971, guid: b282c8b46e995b54385a8713dcd60066, type: 3}
       propertyPath: buttonRestart
       value: 
       objectReference: {fileID: 1181104365}
@@ -3911,7 +3915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2539763510271067898, guid: 7888cf61d4cc8734ebaebe62fe15eaf9, type: 3}
       propertyPath: speed
-      value: 100
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2539763510271067898, guid: 7888cf61d4cc8734ebaebe62fe15eaf9, type: 3}
       propertyPath: bombText

@@ -27,12 +27,7 @@ namespace TrapLight
             if (Instance == null)
             {
                 Instance = this;
-                //DontDestroyOnLoad(gameObject);
             }
-            //else
-            //{
-            //    Destroy(gameObject);
-            //}
         }
         private void Start()
         {
@@ -47,7 +42,7 @@ namespace TrapLight
             DeleteAllLightParticles();
 
             if (waveTextAnimator)
-                waveTextAnimator.SetBool("IsWaveShow", true);
+                waveTextAnimator.SetBool(GlobalConstant.ISWAVESHOW, true);
 
             UIController.Instance.SetGameOverUI(false);
             yield return new WaitForSeconds(4);
@@ -57,7 +52,7 @@ namespace TrapLight
             blackParticle.UpgradeLevel(waveCount);
 
             if (waveTextAnimator)
-                waveTextAnimator.SetBool("IsWaveShow", false);
+                waveTextAnimator.SetBool(GlobalConstant.ISWAVESHOW, false);
         }
         public void ResetWave()
         {
@@ -79,7 +74,6 @@ namespace TrapLight
             
             if (blackParticle.GetMaxExplosiveCount() <= currentExplosionCount && blackParticle.GetExplosiveCount() <= 0 && currentLightParticleCount > 0 )
             {
-                //Debug.Log("game over");
                 blackParticle.DeleteAllWalls();
                 UIController.Instance.SetGameOverUI(true);
             }

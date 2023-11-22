@@ -19,10 +19,6 @@ namespace TrapLight
         [SerializeField] private GameObject fillCtrlKey;
         [SerializeField] private GameObject fillSpaceKey;
 
-        //[SerializeField] private GameObject movementContainer;
-        //[SerializeField] private GameObject explosiveContainer;
-        //[SerializeField] private GameObject wallContianer;
-
         [SerializeField] private GameObject[] tutorialContainers;
 
 

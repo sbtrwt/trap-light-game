@@ -18,5 +18,7 @@ namespace TrapLight
         public const int LOBBY_INDEX = 0;
         public const int MAIN_INDEX = 1;
         public const int TUTORIAL_INDEX = 2;
+
+        public const string ISWAVESHOW = "IsWaveShow";
     }
 }
