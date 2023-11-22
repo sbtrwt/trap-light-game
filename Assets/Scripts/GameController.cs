@@ -47,7 +47,7 @@ namespace TrapLight
             DeleteAllLightParticles();
 
             if (waveTextAnimator)
-                waveTextAnimator.SetBool("IsWaveShow", true);
+                waveTextAnimator.SetBool(GlobalConstant.ISWAVESHOW, true);
 
             UIController.Instance.SetGameOverUI(false);
             yield return new WaitForSeconds(4);
@@ -57,7 +57,7 @@ namespace TrapLight
             blackParticle.UpgradeLevel(waveCount);
 
             if (waveTextAnimator)
-                waveTextAnimator.SetBool("IsWaveShow", false);
+                waveTextAnimator.SetBool(GlobalConstant.ISWAVESHOW, false);
         }
         public void ResetWave()
         {

@@ -1,3 +1,4 @@
+using TrapLight.Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,12 +10,13 @@ namespace TrapLight.UI
         [SerializeField] private Button buttonStart;
         [SerializeField] private Button buttonTutorial;
         [SerializeField] private Button buttonExit;
-
+        [SerializeField] private Button buttonSound;
         private void Start()
         {
             buttonStart.onClick.AddListener(OnClickStart);
             buttonTutorial.onClick.AddListener(OnClickTutorial);
             buttonExit.onClick.AddListener(OnClickExit);
+            buttonSound.onClick.AddListener(OnClickSound);
         }
 
         private void OnClickStart()
@@ -28,6 +30,10 @@ namespace TrapLight.UI
         private void OnClickExit()
         {
             Application.Quit();
+        }
+        private void OnClickSound()
+        {
+            SoundManager.Instance.ToggleMusic();
         }
     }
 }

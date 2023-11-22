@@ -335,8 +335,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288f4f77d4ec7df4d9601a18537e1033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 25
   explosiveItemPrefab: {fileID: 8881776959453301221, guid: 5e94548f6a7740a40b9265d7394d2a96, type: 3}
+  wallLinePrefab: {fileID: 4691923499763083047, guid: beda54c87003a81469f432a58b8fec67, type: 3}
+  wallLineColliderPrefab: {fileID: 2760027653405074321, guid: ac3a6a5ef91cd994380996e306009926, type: 3}
   explosiveItemCount: 5
   health: 100
   MAX_HEALTH: 100

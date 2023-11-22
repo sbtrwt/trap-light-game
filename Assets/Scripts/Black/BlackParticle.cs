@@ -9,13 +9,15 @@ namespace TrapLight.Light
 
     public class BlackParticle : MonoBehaviour
     {
-        [SerializeField] private float speed = 50;
+        [SerializeField] private float speed = 25;
         private Rigidbody2D rb2D;
 
         private LineRenderer line; // Reference to LineRenderer
         private Vector3 startPos;    // Start position of line
         private Vector3 endPos;    // End position of line
         [SerializeField] private GameObject explosiveItemPrefab;
+        [SerializeField] private GameObject wallLinePrefab;
+        [SerializeField] private GameObject wallLineColliderPrefab;
         [SerializeField] private int explosiveItemCount = 2;
         [SerializeField] private int health = 100;
         [SerializeField] private int MAX_HEALTH = 100;
@@ -25,19 +27,20 @@ namespace TrapLight.Light
         [SerializeField] private int EXPLOSIVE_COUNT = 2;
         private List<GameObject> wallLines;
         private List<GameObject> wallColliders;
-
+        private Vector2 position;
         private void Start()
         {
             rb2D = GetComponent<Rigidbody2D>();
             RefreshHealthText();
         }
+        private void FixedUpdate()
+        {
+            rb2D.MovePosition(rb2D.position + position * Time.fixedDeltaTime * speed);
+        }
         private void Update()
         {
-            rb2D.MovePosition(rb2D.position + new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * Time.deltaTime * speed);
-
             HandleInput();
         }
-
         private void OnCollisionEnter2D(Collision2D collision)
         {
             //Debug.Log(collision.gameObject.tag);
@@ -54,12 +57,15 @@ namespace TrapLight.Light
 
         void HandleInput()
         {
+            position = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (line == null)
                     CreateLine();
-
+               
+              
                 line.SetPosition(0, rb2D.position);
+                line.SetPosition(1, rb2D.position);
                 startPos = rb2D.position;
             }
 
@@ -78,7 +84,6 @@ namespace TrapLight.Light
             {
                 if (line)
                 {
-
                     line.SetPosition(1, rb2D.position);
                 }
             }
@@ -91,19 +96,19 @@ namespace TrapLight.Light
 
         private void CreateLine()
         {
-
-            line = new GameObject("Line").AddComponent<LineRenderer>();
-            line.material = new Material(Shader.Find("Diffuse"));
-            line.useWorldSpace = true;
+          
+            var wall = Instantiate(wallLinePrefab);
+            line = wall.GetComponent<LineRenderer>();
 
             if (wallLines == null) wallLines = new List<GameObject>();
-            wallLines.Add(line.gameObject);
+            wallLines.Add(wall);
         }
 
         // Following method adds collider to created line
         private void AddColliderToLine()
         {
-            BoxCollider2D col = new GameObject("Collider").AddComponent<BoxCollider2D>();
+            var warCollider = Instantiate(wallLineColliderPrefab);
+            BoxCollider2D col = warCollider.GetComponent<BoxCollider2D>();
             col.transform.parent = line.transform; // Collider is added as child object of line
             float lineLength = Vector3.Distance(startPos, endPos); // length of line
 
@@ -122,7 +127,7 @@ namespace TrapLight.Light
             {
                 col.transform.Rotate(0, 0, angle);
                 if (wallColliders == null) wallColliders = new List<GameObject>();
-                wallColliders.Add(col.gameObject);
+                wallColliders.Add(warCollider);
             }
         }
 
