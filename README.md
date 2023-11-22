@@ -15,3 +15,8 @@ Avoid the light particle and trap them using your line drawing strategy
 ### Wave
 ![Screenshot 2023-11-22 182022](https://github.com/sbtrwt/trap-light-game/assets/5724149/d548ba15-715c-4bf3-9477-a30d7f8dba9d)
 
+### Gameplay
+
+
+https://github.com/sbtrwt/trap-light-game/assets/5724149/a1825e3d-27a1-412b-8de5-e47d58a03198
+
