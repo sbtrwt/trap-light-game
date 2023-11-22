@@ -43,10 +43,8 @@ namespace TrapLight.Light
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            //Debug.Log(collision.gameObject.tag);
             if (collision.gameObject.CompareTag(GlobalConstant.LIGHT_TAG))
             {
-                Debug.Log(collision.gameObject.tag);
                 if (AddHealth(-1) <= 0)
                 {
                     DeleteAllWalls();
@@ -62,7 +60,6 @@ namespace TrapLight.Light
             {
                 if (line == null)
                     CreateLine();
-               
               
                 line.SetPosition(0, rb2D.position);
                 line.SetPosition(1, rb2D.position);
@@ -73,7 +70,6 @@ namespace TrapLight.Light
             {
                 if (line)
                 {
-
                     line.SetPosition(1, rb2D.position);
                     endPos = rb2D.position;
                     AddColliderToLine();

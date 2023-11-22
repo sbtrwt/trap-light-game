@@ -61,7 +61,6 @@ namespace TrapLight.Explosion
             Detonate();
             if (GameController.Instance != null)
             {
-
                 GameController.Instance.IncrementExplosionCount();
                 GameController.Instance.ValidateGame();
             }

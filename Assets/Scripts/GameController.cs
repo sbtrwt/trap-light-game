@@ -27,12 +27,7 @@ namespace TrapLight
             if (Instance == null)
             {
                 Instance = this;
-                //DontDestroyOnLoad(gameObject);
             }
-            //else
-            //{
-            //    Destroy(gameObject);
-            //}
         }
         private void Start()
         {
@@ -79,7 +74,6 @@ namespace TrapLight
             
             if (blackParticle.GetMaxExplosiveCount() <= currentExplosionCount && blackParticle.GetExplosiveCount() <= 0 && currentLightParticleCount > 0 )
             {
-                //Debug.Log("game over");
                 blackParticle.DeleteAllWalls();
                 UIController.Instance.SetGameOverUI(true);
             }
