@@ -1,6 +1,6 @@
 ﻿
 using System.Collections.Generic;
-using TrapLight.Light;
+using TrapLight.Wave.Light;
 
 namespace TrapLight.Wave
 {
@@ -8,6 +8,6 @@ namespace TrapLight.Wave
     public struct WaveData
     {
         public int WaveID;
-       public List<LightParticleType> ListOfLights;
+        public List<LightParticleType> ListOfLights;
     }
 }

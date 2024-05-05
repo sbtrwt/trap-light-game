@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace TrapLight.Light
+namespace TrapLight.Wave.Light
 {
     [CreateAssetMenu(fileName = "LightScriptableObject", menuName = "ScriptableObjects/LightScriptableObject")]
     public class LightParticleSO : ScriptableObject

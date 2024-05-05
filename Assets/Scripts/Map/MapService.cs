@@ -18,14 +18,14 @@ namespace TrapLight.Map
         public MapService(MapSO mapScriptableObject)
         {
             this.mapScriptableObject = mapScriptableObject;
-            tileOverlay = Object.Instantiate(mapScriptableObject.TileOverlay).GetComponent<SpriteRenderer>();
+            //tileOverlay = Object.Instantiate(mapScriptableObject.TileOverlay).GetComponent<SpriteRenderer>();
            
         }
 
         public void Init(EventService eventService)
         {
             this.eventService = eventService;
-            SubscribeToEvents();
+            //SubscribeToEvents();
         }
         private void SubscribeToEvents() => eventService.OnMapSelected.AddListener(LoadMap);
 

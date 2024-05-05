@@ -5,7 +5,7 @@ using UnityEngine;
 using TrapLight.Utilities;
 using TrapLight.Wave;
 
-namespace TrapLight.Light
+namespace TrapLight.Wave.Light
 {
     public class LightParticlePool : GenericObjectPool<LightParticleController>
     {

@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace TrapLight.Light
+namespace TrapLight.Wave.Light
 {
     public class LightParticleController
     {

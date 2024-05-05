@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-namespace TrapLight.Black
+﻿using UnityEngine;
+namespace TrapLight.Player.Black
 {
     [CreateAssetMenu(fileName = "BlackScriptableObject", menuName = "ScriptableObjects/BlackScriptableObject")]
 
@@ -9,6 +8,8 @@ namespace TrapLight.Black
         public int Health;
         public int Damage;
         public int DefaultExplosion;
-        public Sprite Sprite;
+        public int Speed;
+        public BlackParticleView BlackParticlePrefab;
+
     }
 }

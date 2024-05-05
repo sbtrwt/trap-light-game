@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TrapLight.Light;
+using TrapLight.Wave.Light;
 using UnityEngine;
 
 namespace TrapLight.Wave

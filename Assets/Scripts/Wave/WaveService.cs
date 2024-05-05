@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TrapLight.Events;
-using TrapLight.Light;
 using TrapLight.Map;
+using TrapLight.Wave.Light;
 using UnityEngine;
 
 namespace TrapLight.Wave
@@ -32,7 +32,7 @@ namespace TrapLight.Wave
             this.mapService = mapService;
             this.eventService = eventService;
             InitializeLights();
-            SubscribeToEvents();
+            //SubscribeToEvents();
         }
         private void InitializeLights()
         {

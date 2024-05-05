@@ -4,7 +4,7 @@ using TMPro;
 using TrapLight.Sound;
 using TrapLight.UI;
 using UnityEngine;
-namespace TrapLight.Light
+namespace TrapLight.Player.Light
 {
 
     public class BlackParticle : MonoBehaviour

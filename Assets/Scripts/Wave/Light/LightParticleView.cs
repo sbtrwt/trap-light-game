@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace TrapLight.Black
+namespace TrapLight.Wave.Light
 {
-    public class BlackParticleView : MonoBehaviour
+    public class LightParticleView : MonoBehaviour
     {
-        private BlackParticleController controller;
+        private LightParticleController controller;
 
         private SpriteRenderer spriteRenderer;
         private Animator animator;
@@ -13,17 +13,18 @@ namespace TrapLight.Black
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
         }
-        public void SetController(BlackParticleController controller)
+        public void SetController(LightParticleController controller)
         {
             this.controller = controller;
         }
-
         public void SetRenderer(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
-        public void PopBlackParticle()
+
+        public void PopLight()
         {
             animator.enabled = true;
             animator.Play("Pop", 0);
         }
+
         public void PopAnimationPlayed()
         {
             spriteRenderer.sprite = null;

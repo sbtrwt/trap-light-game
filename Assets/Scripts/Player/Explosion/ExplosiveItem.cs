@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using TrapLight.Player.Light;
 using TrapLight.Sound;
-using TrapLight.Light;
+using UnityEngine;
 
-namespace TrapLight.Explosion
+namespace TrapLight.Player.Explosion
 {
     public class ExplosiveItem : MonoBehaviour
     {
@@ -36,21 +35,21 @@ namespace TrapLight.Explosion
                 {
                     Destroy(hit.gameObject);
                     if (GameController.Instance != null)
-                    GameController.Instance.DecreaseLightParticleCount();
+                        GameController.Instance.DecreaseLightParticleCount();
                 }
 
                 if (hit.gameObject.CompareTag(GlobalConstant.BLACK_TAG))
                 {
                     BlackParticle black = hit.gameObject.GetComponent<BlackParticle>();
-                    if(black != null)
+                    if (black != null)
                     {
                         black.AddHealth(-20);
                     }
                 }
-               
+
             }
             Destroy(gameObject);
-       
+
             Destroy(explosionEffect.gameObject, 1f);
 
         }
