@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TrapLight.Light
 {
     [CreateAssetMenu(fileName = "LightScriptableObject", menuName = "ScriptableObjects/LightScriptableObject")]
-    public class LightSO : ScriptableObject
+    public class LightParticleSO : ScriptableObject
     {
         public LightParticleType Type;
         public int Health;

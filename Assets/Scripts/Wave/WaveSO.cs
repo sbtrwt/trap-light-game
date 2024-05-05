@@ -10,6 +10,6 @@ namespace TrapLight.Wave
         public float SpawnRate;
         public List<WaveConfiguration> WaveConfigurations;
         public LightParticleView LightPrefab;
-        public List<LightSO> LightScriptableObjects;
+        public List<LightParticleSO> LightScriptableObjects;
     }
 }

@@ -6,7 +6,7 @@ namespace TrapLight.Light
     public class LightParticleController
     {
         private LightParticleView lightView;
-        private LightSO lightScriptableObject;
+        private LightParticleSO lightScriptableObject;
 
         //private const float waypointThreshold = 0.1f;
         //private List<Vector3> waypoints;
@@ -17,12 +17,10 @@ namespace TrapLight.Light
         public Vector3 Position => lightView.transform.position;
         public LightParticleController(LightParticleView lightPrefab, Transform lightContainer)
         {
-
-
             lightView = Object.Instantiate(lightPrefab, lightContainer);
             lightView.SetController( this);
         }
-        public void Init(LightSO lightScriptableObject)
+        public void Init(LightParticleSO lightScriptableObject)
         {
             this.lightScriptableObject = lightScriptableObject;
             InitializeVariables();
@@ -32,7 +30,7 @@ namespace TrapLight.Light
         {
             lightView.SetRenderer(lightScriptableObject.Sprite);
             currentHealth = lightScriptableObject.Health;
-            //waypoints = new List<Vector3>();
+           
         }
         private void SetState(LightState state) => currentState = state;
         private void PopLigth()
