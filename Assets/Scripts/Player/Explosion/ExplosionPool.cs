@@ -18,5 +18,14 @@ namespace TrapLight.Player.Explosion
         }
 
         protected override ExplosionController CreateItem() => new ExplosionController(explosionView, explosionContainer);
+        public ExplosionController GetExplosion()
+        {
+            ExplosionController explosion = GetItem();
+          
+            return explosion;
+        }
+
     }
 }
+
+

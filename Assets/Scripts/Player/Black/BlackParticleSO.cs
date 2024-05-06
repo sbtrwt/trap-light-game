@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TrapLight.Player.Explosion;
+using UnityEngine;
 namespace TrapLight.Player.Black
 {
     [CreateAssetMenu(fileName = "BlackScriptableObject", menuName = "ScriptableObjects/BlackScriptableObject")]
@@ -10,6 +11,6 @@ namespace TrapLight.Player.Black
         public int DefaultExplosion;
         public int Speed;
         public BlackParticleView BlackParticlePrefab;
-
+        public ExplosionView ExplosionViewPrefab;
     }
 }

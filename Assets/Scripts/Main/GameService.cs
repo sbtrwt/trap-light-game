@@ -29,9 +29,7 @@ namespace TrapLight
         private void InitializeServices()
         {
             eventService = new EventService();
-           
             mapService = new MapService(mapScriptableObject);
-        
             waveService = new WaveService(waveScriptableObject);
             playerService = new PlayerService(playerScriptableObject);
         }
@@ -39,8 +37,6 @@ namespace TrapLight
         private void InjectDependencies()
         {
             mapService.Init(eventService);
-          
-          
             waveService.Init( mapService,  eventService);
             playerService.Init();
         }
