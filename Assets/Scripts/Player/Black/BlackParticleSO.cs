@@ -8,9 +8,8 @@ namespace TrapLight.Player.Black
     {
         public int Health;
         public int Damage;
-        public int DefaultExplosion;
+        public int DefaultExplosionCount;
         public int Speed;
         public BlackParticleView BlackParticlePrefab;
-        public ExplosionView ExplosionViewPrefab;
     }
 }

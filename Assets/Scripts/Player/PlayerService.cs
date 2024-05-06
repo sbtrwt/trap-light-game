@@ -8,16 +8,18 @@ namespace TrapLight.Player
         private BlackParticleController blackParticle;
         private PlayerSO playerSO;
         private ExplosionPool explosionPool;
-        public PlayerService(PlayerSO playerSO)
+        private ExplosionSO explosionSO;
+        public PlayerService(PlayerSO playerSO, ExplosionSO explosionSO)
         {
             this.playerSO = playerSO;
+            this.explosionSO = explosionSO;
             blackParticle = new BlackParticleController(playerSO.BlackParticleSO.BlackParticlePrefab );
         }
 
         public void Init()
         {
             blackParticle.Init(playerSO.BlackParticleSO, this);
-            explosionPool = new ExplosionPool(playerSO.BlackParticleSO.ExplosionViewPrefab);
+            explosionPool = new ExplosionPool(explosionSO.ExplosionViewPrefab);
         }
         public void ReturnExplsionToPool(ExplosionController explosionController)
         {
@@ -27,7 +29,7 @@ namespace TrapLight.Player
         {
             ExplosionController explosionController = explosionPool.GetExplosion();
             explosionController.SetPosition(blackParticle.Position);
-            explosionController.Init(this);
+            explosionController.Init(this, explosionSO);
         }
     }
 }

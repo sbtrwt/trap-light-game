@@ -1,6 +1,7 @@
 ﻿using TrapLight.Events;
 using TrapLight.Map;
 using TrapLight.Player;
+using TrapLight.Player.Explosion;
 using TrapLight.Wave;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace TrapLight
         [SerializeField] private MapSO mapScriptableObject;
         [SerializeField] private WaveSO waveScriptableObject;
         [SerializeField] private PlayerSO playerScriptableObject;
-
+        [SerializeField] private ExplosionSO explosionScriptableObject;
         // Scene References:
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource bgMusicSource;
@@ -31,7 +32,7 @@ namespace TrapLight
             eventService = new EventService();
             mapService = new MapService(mapScriptableObject);
             waveService = new WaveService(waveScriptableObject);
-            playerService = new PlayerService(playerScriptableObject);
+            playerService = new PlayerService(playerScriptableObject, explosionScriptableObject);
         }
 
         private void InjectDependencies()

@@ -12,7 +12,7 @@ namespace TrapLight.Wave.Light
         //private List<Vector3> waypoints;
         private int currentHealth;
         private int currentWaypointIndex;
-        private LightState currentState;
+        private LightParticleState currentState;
 
         public Vector3 Position => lightView.transform.position;
         public LightParticleController(LightParticleView lightPrefab, Transform lightContainer)
@@ -24,7 +24,7 @@ namespace TrapLight.Wave.Light
         {
             this.lightScriptableObject = lightScriptableObject;
             InitializeVariables();
-            SetState(LightState.ACTIVE);
+            SetState(LightParticleState.ACTIVE);
         }
         private void InitializeVariables()
         {
@@ -32,11 +32,11 @@ namespace TrapLight.Wave.Light
             currentHealth = lightScriptableObject.Health;
            
         }
-        private void SetState(LightState state) => currentState = state;
-        private void PopLigth()
+        private void SetState(LightParticleState state) => currentState = state;
+        private void PopLightParticle()
         {
-            SetState(LightState.POPPED);
-            lightView.PopLight();
+            SetState(LightParticleState.POPPED);
+            //lightView.PopLightParticle();
         }
 
         public void OnPopAnimationPlayed()
@@ -48,12 +48,19 @@ namespace TrapLight.Wave.Light
             //GameService.Instance.waveService.RemoveBloon(this);
         }
 
-        //private bool HasLayeredLights() => lightScriptableObject.LayeredBloons.Count > 0;
-        //private void SpawnLayeredLights() => GameService.Instance.waveService.SpawnLights(lightScriptableObject.LayeredLights,
-        //lightView.transform.position,
-        //currentWaypointIndex,
-        //lightScriptableObject.LayerLightSpawnRate);
-        public enum LightState
+        public void TakeDamage(int damageToTake)
+        {
+            int reducedHealth = currentHealth - damageToTake;
+            currentHealth = reducedHealth <= 0 ? 0 : reducedHealth;
+
+            if (currentHealth <= 0 && currentState == LightParticleState.ACTIVE)
+            {
+                PopLightParticle();
+                //GameService.Instance.soundService.PlaySoundEffects(Sound.SoundType.BloonPop);
+            }
+        }
+
+        public enum LightParticleState
         {
             ACTIVE,
             POPPED

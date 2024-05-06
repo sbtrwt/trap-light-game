@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TrapLight.Wave.Light;
 using UnityEngine;
 namespace TrapLight.Player.Explosion
 {
@@ -13,6 +14,7 @@ namespace TrapLight.Player.Explosion
         private void Start()
         {
             circleRange = GetComponent<LineRenderer>();
+            DrawCircle(circleSteps, radius);
         }
 
         public void Init()
@@ -31,33 +33,39 @@ namespace TrapLight.Player.Explosion
 
             explosionEffect = Instantiate(explosionEffectPrefab);
             explosionEffect.transform.position = gameObject.transform.position;
-
-            //Vector2 position = transform.position;
-            //Collider2D[] colliders = Physics2D.OverlapCircleAll(position, radius);
-            //foreach (Collider2D hit in colliders)
-            //{
-
-            //    if (hit.gameObject.CompareTag(GlobalConstant.LIGHT_TAG))
-            //    {
-            //        Destroy(hit.gameObject);
-            //        if (GameController.Instance != null)
-            //            GameController.Instance.DecreaseLightParticleCount();
-            //    }
-
-            //    if (hit.gameObject.CompareTag(GlobalConstant.BLACK_TAG))
-            //    {
-            //        BlackParticle black = hit.gameObject.GetComponent<BlackParticle>();
-            //        if (black != null)
-            //        {
-            //            black.AddHealth(-20);
-            //        }
-            //    }
-
-            //}
-            //Destroy(gameObject);
+            DetectExplosionEffect();
+           
             controller.ResetExplosion();
             Destroy(explosionEffect.gameObject, 1f);
 
+        }
+
+        private void DetectExplosionEffect()
+        {
+            Vector2 position = transform.position;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(position, radius);
+            foreach (Collider2D hit in colliders)
+            {
+
+                if (hit.gameObject.CompareTag(GlobalConstant.LIGHT_TAG))
+                {
+                    if (hit.gameObject.GetComponent<LightParticleView>() != null)
+                        controller.OnHitLightParticle(hit.gameObject.GetComponent<LightParticleView>().GetController());
+                    //Destroy(hit.gameObject);
+                    //if (GameController.Instance != null)
+                    //    GameController.Instance.DecreaseLightParticleCount();
+                }
+
+                if (hit.gameObject.CompareTag(GlobalConstant.BLACK_TAG))
+                {
+                    //BlackParticle black = hit.gameObject.GetComponent<BlackParticle>();
+                    //if (black != null)
+                    //{
+                    //    black.AddHealth(-20);
+                    //}
+                }
+
+            }
         }
 
         private IEnumerator StartAfterDelay()

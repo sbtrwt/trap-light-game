@@ -17,9 +17,13 @@ namespace TrapLight.Wave.Light
         {
             this.controller = controller;
         }
+        public LightParticleController GetController()
+        {
+            return controller;
+        }
         public void SetRenderer(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
 
-        public void PopLight()
+        public void PopLightParticle()
         {
             animator.enabled = true;
             animator.Play("Pop", 0);
