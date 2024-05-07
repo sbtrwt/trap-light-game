@@ -31,9 +31,9 @@ namespace TrapLight.Map
 
         private void LoadMap(int mapId)
         {
-            currentMapData = mapScriptableObject.MapDatas.Find(mapData => mapData.MapID == mapId);
-            currentGrid = Object.Instantiate(currentMapData.MapPrefab);
-            currentTileMap = currentGrid.GetComponentInChildren<Tilemap>();
+            //currentMapData = mapScriptableObject.MapDatas.Find(mapData => mapData.MapID == mapId);
+            //currentGrid = Object.Instantiate(currentMapData.MapPrefab);
+            //currentTileMap = currentGrid.GetComponentInChildren<Tilemap>();
         }
     }
 }

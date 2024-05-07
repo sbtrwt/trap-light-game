@@ -45,9 +45,9 @@ namespace TrapLight.Utilities
             pooledItem.isUsed = false;
         }
 
-        public class PooledItem<T>
+        public class PooledItem<PItem>
         {
-            public T Item;
+            public PItem Item;
             public bool isUsed;
         }
     }

@@ -1,5 +1,5 @@
 ﻿
-using System;
+
 using TrapLight.Wave.Light;
 using UnityEngine;
 namespace TrapLight.Player.Explosion

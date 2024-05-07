@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af0a23ebc8a19f488b2cc03f50b06b7, type: 3}
   m_Name: WaveConfigurationSO
   m_EditorClassIdentifier: 
-  MapID: 0
-  WaveDatas: []
+  MapID: 1
+  WaveDatas:
+  - WaveID: 1
+    ListOfLights: 0000000000000000

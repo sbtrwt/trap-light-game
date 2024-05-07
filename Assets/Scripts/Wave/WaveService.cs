@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TrapLight.Events;
@@ -32,11 +33,11 @@ namespace TrapLight.Wave
             this.mapService = mapService;
             this.eventService = eventService;
             InitializeLights();
-            //SubscribeToEvents();
+            SubscribeToEvents();
         }
         private void InitializeLights()
         {
-            lightPool = new LightParticlePool(waveScriptableObject);
+            lightPool = new LightParticlePool(waveScriptableObject, this);
             activeLights = new List<LightParticleController>();
         }
 
@@ -54,11 +55,12 @@ namespace TrapLight.Wave
             currentWaveId++;
             var lightsToSpawn = GetLightsForCurrentWave();
             //var spawnPosition = GameService.Instance.MapService.GetLightSpawnPositionForCurrentMap();
-            //SpawnLights(lightsToSpawn, spawnPosition, 0, waveScriptableObject.SpawnRate);
+            SpawnLights(lightsToSpawn);
         }
 
-        public  void SpawnLights(List<LightParticleType> lightsToSpawn, Vector3 spawnPosition, int startingWaypointIndex, float spawnRate)
+        public  void SpawnLights(List<LightParticleType> lightsToSpawn)
         {
+            if(lightsToSpawn != null)
             foreach (LightParticleType lightType in lightsToSpawn)
             {
                 LightParticleController light = lightPool.GetLightParticle(lightType);
@@ -70,13 +72,15 @@ namespace TrapLight.Wave
             }
         }
 
+       
+
         private void AddLight(LightParticleController lightToAdd)
         {
             activeLights.Add(lightToAdd);
             //lightToAdd.SetOrderInLayer(-activeLights.Count);
         }
 
-        public void RemoveLight(LightParticleController light)
+        public void RemoveLightParticle(LightParticleController light)
         {
             lightPool.ReturnItem(light);
             activeLights.Remove(light);

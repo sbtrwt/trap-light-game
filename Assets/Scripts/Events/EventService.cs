@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿
 
 namespace TrapLight.Events
 {
-    public class EventService : MonoBehaviour
+    public class EventService
     {
         public EventController<int> OnMapSelected { get; private set; }
 
-        private void Awake()
+        public EventService()
         {
             OnMapSelected = new EventController<int>();
         }

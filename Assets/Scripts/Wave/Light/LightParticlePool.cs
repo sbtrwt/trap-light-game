@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using TrapLight.Utilities;
-using TrapLight.Wave;
+using UnityEngine;
 
 namespace TrapLight.Wave.Light
 {
@@ -12,19 +9,20 @@ namespace TrapLight.Wave.Light
         private LightParticleView lightPrefab;
         private List<LightParticleSO> lightScriptableObjects;
         private Transform lightContainer;
-
-        public LightParticlePool(WaveSO waveScriptableObject)
+        private WaveService waveService;
+        public LightParticlePool(WaveSO waveScriptableObject, WaveService waveService)
         {
             this.lightPrefab = waveScriptableObject.LightPrefab;
             this.lightScriptableObjects = waveScriptableObject.LightScriptableObjects;
             this.lightContainer = new GameObject("Light Container").transform;
+            this.waveService = waveService;
         }
 
         public LightParticleController GetLightParticle(LightParticleType lightType)
         {
             LightParticleController light = GetItem();
             LightParticleSO scriptableObjectToUse = lightScriptableObjects.Find(so => so.Type == lightType);
-            light.Init(scriptableObjectToUse);
+            light.Init(scriptableObjectToUse, waveService);
             return light;
         }
 

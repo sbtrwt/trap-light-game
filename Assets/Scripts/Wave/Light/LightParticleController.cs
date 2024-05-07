@@ -7,7 +7,7 @@ namespace TrapLight.Wave.Light
     {
         private LightParticleView lightView;
         private LightParticleSO lightScriptableObject;
-
+        private WaveService waveService;
         //private const float waypointThreshold = 0.1f;
         //private List<Vector3> waypoints;
         private int currentHealth;
@@ -20,9 +20,10 @@ namespace TrapLight.Wave.Light
             lightView = Object.Instantiate(lightPrefab, lightContainer);
             lightView.SetController( this);
         }
-        public void Init(LightParticleSO lightScriptableObject)
+        public void Init(LightParticleSO lightScriptableObject, WaveService waveService)
         {
             this.lightScriptableObject = lightScriptableObject;
+            this.waveService = waveService;
             InitializeVariables();
             SetState(LightParticleState.ACTIVE);
         }
@@ -56,8 +57,16 @@ namespace TrapLight.Wave.Light
             if (currentHealth <= 0 && currentState == LightParticleState.ACTIVE)
             {
                 PopLightParticle();
+                ResetLightParticle();
                 //GameService.Instance.soundService.PlaySoundEffects(Sound.SoundType.BloonPop);
             }
+        }
+
+        private void ResetLightParticle()
+        {
+            waveService.RemoveLightParticle(this);
+         
+            lightView.gameObject.SetActive(false);
         }
 
         public enum LightParticleState
