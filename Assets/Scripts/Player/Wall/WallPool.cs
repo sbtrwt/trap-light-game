@@ -17,11 +17,11 @@ namespace TrapLight.Player.Wall
         }
 
         protected override WallController CreateItem() => new WallController(wallView, wallContainer);
-        public WallController GetExplosion()
+        public WallController GetWall()
         {
-            WallController explosion = GetItem();
+            WallController wall = GetItem();
 
-            return explosion;
+            return wall;
         }
 
     }

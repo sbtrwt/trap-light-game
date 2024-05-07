@@ -2,6 +2,7 @@
 using TrapLight.Map;
 using TrapLight.Player;
 using TrapLight.Player.Explosion;
+using TrapLight.Player.Wall;
 using TrapLight.UI;
 using TrapLight.Wave;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace TrapLight
         [SerializeField] private WaveSO waveScriptableObject;
         [SerializeField] private PlayerSO playerScriptableObject;
         [SerializeField] private ExplosionSO explosionScriptableObject;
+        [SerializeField] private WallSO wallScriptableObject;
 
         [SerializeField] private UIService uiService;
         public UIService UIService => uiService;
@@ -38,7 +40,7 @@ namespace TrapLight
             eventService = new EventService();
             mapService = new MapService(mapScriptableObject);
             waveService = new WaveService(waveScriptableObject);
-            playerService = new PlayerService(playerScriptableObject, explosionScriptableObject);
+            playerService = new PlayerService(playerScriptableObject, explosionScriptableObject, wallScriptableObject);
         
         }
 

@@ -50,7 +50,20 @@ namespace TrapLight.Player.Black
             {
                 SetExplosive();
             }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                playerService.OnWallDrawStart(blackView.transform.position);
+            }
 
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                playerService.OnWallDrawEnd(blackView.transform.position);
+                playerService.OnWallColliderDraw();
+            }
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                playerService.OnWallDrawing(blackView.transform.position);
+            }
         }
         public void Move(Rigidbody2D playerRigidbody)
         {

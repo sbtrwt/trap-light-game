@@ -9,12 +9,26 @@ namespace TrapLight.Player.Wall
         private BoxCollider2D boxCollider2D;
         private void Start()
         {
+            Init();
+        }
+        public void Init()
+        {
             boxCollider2D = GetComponent<BoxCollider2D>();
             lineRenderer = GetComponent<LineRenderer>();
         }
         public void SetController(WallController controller)
         {
             this.controller = controller;
+        }
+
+        public void SetLineRendererPosition(int index, Vector3 positionToSet)
+        {
+            lineRenderer.SetPosition(index, positionToSet);
+        }
+
+        public void SetCollider2D()
+        {
+            controller.AddColliderToLine(boxCollider2D);
         }
     }
 }

@@ -352,6 +352,7 @@ MonoBehaviour:
   waveScriptableObject: {fileID: 11400000, guid: 8ea62909fcbf7cb428f6076b82dbaf1b, type: 2}
   playerScriptableObject: {fileID: 11400000, guid: fdffbd3e2961f764abd815a973494be0, type: 2}
   explosionScriptableObject: {fileID: 11400000, guid: fd6fb620bbfb9474899720772f22f537, type: 2}
+  wallScriptableObject: {fileID: 11400000, guid: b15afb2eccd5e594ea6905dfa36cc819, type: 2}
   uiService: {fileID: 604174448}
   sfxSource: {fileID: 0}
   bgMusicSource: {fileID: 0}
