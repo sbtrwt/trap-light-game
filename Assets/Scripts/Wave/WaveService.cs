@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TrapLight.Events;
 using TrapLight.Map;
+using TrapLight.Player;
+using TrapLight.UI;
 using TrapLight.Wave.Light;
 using UnityEngine;
 
@@ -20,18 +22,21 @@ namespace TrapLight.Wave
         private int currentWaveId;
         private List<WaveData> waveDatas;
         private List<LightParticleController> activeLights;
-
+        private UIService uiService;
+        private PlayerService playerService;
+        private WaveData currentWaveData;
         public WaveService(WaveSO waveScriptableObject)
         {
-           
             this.waveScriptableObject = waveScriptableObject;
             InitializeLights();
-            
         }
-        public void Init( MapService mapService,  EventService eventService)
+        public void Init( MapService mapService,  EventService eventService, UIService uiService, PlayerService playerService)
         {
             this.mapService = mapService;
             this.eventService = eventService;
+            this.uiService = uiService;
+            this.playerService = playerService;
+
             InitializeLights();
             SubscribeToEvents();
         }
@@ -47,28 +52,29 @@ namespace TrapLight.Wave
         {
             currentWaveId = 0;
             waveDatas = waveScriptableObject.WaveConfigurations.Find(config => config.MapID == mapId).WaveDatas;
-            //GameService.Instance.UIService.UpdateWaveProgressUI(currentWaveId, waveDatas.Count);
+           
         }
 
         public void StarNextWave()
         {
             currentWaveId++;
-            var lightsToSpawn = GetLightsForCurrentWave();
-            //var spawnPosition = GameService.Instance.MapService.GetLightSpawnPositionForCurrentMap();
-            SpawnLights(lightsToSpawn);
+            StartCurrentWave();
         }
-
+        public void StartCurrentWave()
+        {
+            //activeLights = new List<LightParticleController>();
+            SetCurrenctWaveData();
+            SpawnLights(currentWaveData.ListOfLights);
+            playerService.SetExplosionCount(currentWaveData.ExplosionCount);
+            uiService.SetWaveText(currentWaveId);
+        }
         public  void SpawnLights(List<LightParticleType> lightsToSpawn)
         {
             if(lightsToSpawn != null)
             foreach (LightParticleType lightType in lightsToSpawn)
             {
                 LightParticleController light = lightPool.GetLightParticle(lightType);
-                //light.SetPosition(spawnPosition);
-                //light.SetWayPoints(GameService.Instance.MapService.GetWayPointsForCurrentMap(), startingWaypointIndex);
-
                 AddLight(light);
-                
             }
         }
 
@@ -77,27 +83,31 @@ namespace TrapLight.Wave
         private void AddLight(LightParticleController lightToAdd)
         {
             activeLights.Add(lightToAdd);
-            //lightToAdd.SetOrderInLayer(-activeLights.Count);
         }
 
         public void RemoveLightParticle(LightParticleController light)
         {
             lightPool.ReturnItem(light);
             activeLights.Remove(light);
+            Debug.Log("Light count : " + activeLights.Count);
             if (HasCurrentWaveEnded())
             {
-                //GameService.Instance.soundService.PlaySoundEffects(Sound.SoundType.WaveComplete);
-                //GameService.Instance.UIService.UpdateWaveProgressUI(currentWaveId, waveDatas.Count);
-
-                //if (IsLevelWon())
-                //    GameService.Instance.UIService.UpdateGameEndUI(true);
-                //else
-                //    GameService.Instance.UIService.SetNextWaveButton(true);
+                if (IsLevelWon())
+                {
+                    uiService.ShowNotificationPanel(true, "Conguratulation!!! completed this map.");
+                }
+                else
+                {
+                    uiService.ShowNextWavePanel(true);
+                }
             }
         }
 
         private List<LightParticleType> GetLightsForCurrentWave() => waveDatas.Find(waveData => waveData.WaveID == currentWaveId).ListOfLights;
-
+        private void SetCurrenctWaveData()
+        {
+            currentWaveData = waveDatas.Find(waveData => waveData.WaveID == currentWaveId);
+        }
         private bool HasCurrentWaveEnded() => activeLights.Count == 0;
 
         private bool IsLevelWon() => currentWaveId >= waveDatas.Count;

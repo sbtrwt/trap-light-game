@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TrapLight.Player.Black;
 using TrapLight.Wave.Light;
 using UnityEngine;
 namespace TrapLight.Player.Explosion
@@ -36,6 +37,7 @@ namespace TrapLight.Player.Explosion
             DetectExplosionEffect();
            
             controller.ResetExplosion();
+            controller.IsGameOver();
             Destroy(explosionEffect.gameObject, 1f);
 
         }
@@ -49,20 +51,17 @@ namespace TrapLight.Player.Explosion
 
                 if (hit.gameObject.CompareTag(GlobalConstant.LIGHT_TAG))
                 {
-                    if (hit.gameObject.GetComponent<LightParticleView>() != null)
-                        controller.OnHitLightParticle(hit.gameObject.GetComponent<LightParticleView>().GetController());
-                    //Destroy(hit.gameObject);
-                    //if (GameController.Instance != null)
-                    //    GameController.Instance.DecreaseLightParticleCount();
+                    LightParticleView lightParticleView =  hit.gameObject.GetComponent<LightParticleView>();
+                    if (lightParticleView != null)
+                        controller.OnHitLightParticle(lightParticleView.GetController());
+                   
                 }
 
                 if (hit.gameObject.CompareTag(GlobalConstant.BLACK_TAG))
                 {
-                    //BlackParticle black = hit.gameObject.GetComponent<BlackParticle>();
-                    //if (black != null)
-                    //{
-                    //    black.AddHealth(-20);
-                    //}
+                    BlackParticleView blackParticle = hit.gameObject.GetComponent<BlackParticleView>();
+                    if (blackParticle != null)
+                        controller.OnHitBlackParticle(blackParticle.GetController());
                 }
 
             }

@@ -16,3 +16,10 @@ MonoBehaviour:
   WaveDatas:
   - WaveID: 1
     ListOfLights: 0000000000000000
+    ExplosionCount: 2
+  - WaveID: 2
+    ListOfLights: 0000000000000000000000000000000000000000
+    ExplosionCount: 3
+  - WaveID: 3
+    ListOfLights: 00000000000000000000000000000000000000000000000000000000
+    ExplosionCount: 4

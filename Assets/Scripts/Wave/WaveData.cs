@@ -9,5 +9,6 @@ namespace TrapLight.Wave
     {
         public int WaveID;
         public List<LightParticleType> ListOfLights;
+        public int ExplosionCount;
     }
 }

@@ -11,5 +11,6 @@ namespace TrapLight.Wave
         public List<WaveConfiguration> WaveConfigurations;
         public LightParticleView LightPrefab;
         public List<LightParticleSO> LightScriptableObjects;
+    
     }
 }

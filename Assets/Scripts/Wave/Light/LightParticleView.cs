@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TrapLight.Player.Black;
+using UnityEngine;
 
 namespace TrapLight.Wave.Light
 {
@@ -34,6 +35,16 @@ namespace TrapLight.Wave.Light
             spriteRenderer.sprite = null;
             gameObject.SetActive(false);
             controller.OnPopAnimationPlayed();
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.collider.gameObject.CompareTag(GlobalConstant.BLACK_TAG))
+            {
+                BlackParticleView blackParticle = collision.collider.gameObject.GetComponent<BlackParticleView>();
+                if (blackParticle != null)
+                    controller.OnHitBlackParticle(blackParticle.GetController());
+            }
         }
     }
 }

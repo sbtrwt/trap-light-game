@@ -8,5 +8,6 @@ namespace TrapLight.Wave
     {
         public int MapID;
         public List<WaveData> WaveDatas;
+    
     }
 }

@@ -1,4 +1,6 @@
 ﻿
+using System;
+using TrapLight.Player.Black;
 using UnityEngine;
 
 namespace TrapLight.Wave.Light
@@ -17,7 +19,7 @@ namespace TrapLight.Wave.Light
         public Vector3 Position => lightView.transform.position;
         public LightParticleController(LightParticleView lightPrefab, Transform lightContainer)
         {
-            lightView = Object.Instantiate(lightPrefab, lightContainer);
+            lightView = UnityEngine.Object.Instantiate(lightPrefab, lightContainer);
             lightView.SetController( this);
         }
         public void Init(LightParticleSO lightScriptableObject, WaveService waveService)
@@ -26,6 +28,7 @@ namespace TrapLight.Wave.Light
             this.waveService = waveService;
             InitializeVariables();
             SetState(LightParticleState.ACTIVE);
+            lightView.gameObject.SetActive(true);
         }
         private void InitializeVariables()
         {
@@ -40,13 +43,14 @@ namespace TrapLight.Wave.Light
             //lightView.PopLightParticle();
         }
 
+        public void OnHitBlackParticle(BlackParticleController blackController)
+        {
+            blackController.TakeDamage(lightScriptableObject.Damage);
+        }
+
         public void OnPopAnimationPlayed()
         {
-            //if (HasLayeredLights())
-            //    SpawnLayeredLights();
-
-            //GameService.Instance.playerService.GetReward(lightScriptableObject.Reward);
-            //GameService.Instance.waveService.RemoveBloon(this);
+            
         }
 
         public void TakeDamage(int damageToTake)
@@ -58,7 +62,7 @@ namespace TrapLight.Wave.Light
             {
                 PopLightParticle();
                 ResetLightParticle();
-                //GameService.Instance.soundService.PlaySoundEffects(Sound.SoundType.BloonPop);
+               
             }
         }
 
@@ -68,7 +72,11 @@ namespace TrapLight.Wave.Light
          
             lightView.gameObject.SetActive(false);
         }
-
+        public int GiveDamage() =>  lightScriptableObject.Damage;
+        public void SetPosition(Vector3 spawnPosition)
+        {
+            lightView.transform.position = spawnPosition;
+        }
         public enum LightParticleState
         {
             ACTIVE,

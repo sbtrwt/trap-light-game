@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using TMPro;
+using UnityEngine;
 
 namespace TrapLight.Player.Black
 {
@@ -9,6 +11,8 @@ namespace TrapLight.Player.Black
         private SpriteRenderer spriteRenderer;
         private Rigidbody2D blackRigidbody2D;
         private Animator animator;
+        [SerializeField] TMP_Text healthText;
+        
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -35,6 +39,16 @@ namespace TrapLight.Player.Black
             spriteRenderer.sprite = null;
             gameObject.SetActive(false);
             controller.OnPopAnimationPlayed();
+        }
+
+        public BlackParticleController GetController()
+        {
+            return controller;
+        }
+
+        public void SetHealthText()
+        {
+            controller.SetHealthText(healthText);
         }
     }
 }

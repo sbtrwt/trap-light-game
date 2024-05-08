@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TrapLight.Player.Black;
 using TrapLight.Player.Explosion;
 using TrapLight.Player.Wall;
+using TrapLight.UI;
 using UnityEngine;
 
 namespace TrapLight.Player
@@ -16,6 +18,7 @@ namespace TrapLight.Player
         private WallPool wallPool;
         private List<WallController> allWalls;
         private WallController currentWallController;
+        private UIService uiService;
         public PlayerService(PlayerSO playerSO, ExplosionSO explosionSO, WallSO wallSO)
         {
             this.playerSO = playerSO;
@@ -24,9 +27,10 @@ namespace TrapLight.Player
             blackParticle = new BlackParticleController(playerSO.BlackParticleSO.BlackParticlePrefab );
         }
 
-        public void Init()
+        public void Init(UIService uiService)
         {
-            blackParticle.Init(playerSO.BlackParticleSO, this);
+            this.uiService = uiService;
+            blackParticle.Init(playerSO.BlackParticleSO, this, uiService);
             explosionPool = new ExplosionPool(explosionSO.ExplosionViewPrefab);
             wallPool = new WallPool(wallSO.WallView);
             allWalls = new List<WallController>();
@@ -68,5 +72,19 @@ namespace TrapLight.Player
         {
             currentWallController.OnWallColliderDraw();
         }
+
+        public void OnGameOver()
+        {
+            
+        }
+        public bool IsExplosionEmpty()
+        {
+            return blackParticle.IsExplosionEmpty;
+        }
+        public void SetExplosionCount(int explosionCount)
+        {
+            blackParticle.SetExplosionCount(explosionCount);
+        }
+
     }
 }

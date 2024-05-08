@@ -47,8 +47,8 @@ namespace TrapLight
         private void InjectDependencies()
         {
             mapService.Init(eventService);
-            waveService.Init( mapService,  eventService);
-            playerService.Init();
+            waveService.Init( mapService,  eventService, uiService, playerService);
+            playerService.Init(uiService);
             UIService.Init(eventService, waveService);
             uiService.SubscribeToEvents();
         }

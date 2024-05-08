@@ -1,5 +1,6 @@
 ﻿
 
+using TrapLight.Player.Black;
 using TrapLight.Wave.Light;
 using UnityEngine;
 namespace TrapLight.Player.Explosion
@@ -36,7 +37,13 @@ namespace TrapLight.Player.Explosion
             playerService.ReturnExplsionToPool(this);
             currentState = ExplosionState.DETONATED;
         }
-
+        public void IsGameOver()
+        {
+            if (playerService.IsExplosionEmpty())
+            {
+                playerService.OnGameOver();
+            }
+        }
         public void OnHitLightParticle(LightParticleController controller)
         {
            if(currentState == ExplosionState.ACTIVE)
@@ -44,7 +51,13 @@ namespace TrapLight.Player.Explosion
                 controller.TakeDamage(explosionSO.Damage);
             }
         }
-
+        public void OnHitBlackParticle(BlackParticleController blackController)
+        {
+            if (currentState == ExplosionState.ACTIVE)
+            {
+                blackController.TakeDamage(explosionSO.Damage);
+            }
+        }
         private enum ExplosionState
         {
             ACTIVE,

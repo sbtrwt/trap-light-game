@@ -1,4 +1,7 @@
-﻿using TrapLight.Player.Explosion;
+﻿using System;
+using TMPro;
+using TrapLight.Player.Explosion;
+using TrapLight.UI;
 using UnityEngine;
 
 namespace TrapLight.Player.Black
@@ -8,36 +11,38 @@ namespace TrapLight.Player.Black
         private BlackParticleView blackView;
         private BlackParticleSO blackScriptableObject;
         private PlayerService playerService;
+        private UIService uiService;
 
         private int currentHealth;
         private float horizontalAxis;
         private float verticalAxis;
-     
-        private int currentSpeed;
-       
-        public Vector3 Position => blackView.transform.position;
 
+        private int currentSpeed;
+        private int explosionCount;
+        public Vector3 Position => blackView.transform.position;
+        public bool IsExplosionEmpty => explosionCount <= 0;
+        public bool IsAlive => currentHealth > 0;
         public BlackParticleController(BlackParticleView blackPrefab)
         {
-            blackView = Object.Instantiate(blackPrefab);
+            blackView = UnityEngine.Object.Instantiate(blackPrefab);
             blackView.SetController(this);
         }
 
-        public void Init(BlackParticleSO blackScriptableObject, PlayerService playerService)
+        public void Init(BlackParticleSO blackScriptableObject, PlayerService playerService, UIService uIService)
         {
             this.blackScriptableObject = blackScriptableObject;
             this.playerService = playerService;
+            this.uiService = uIService;
+
             InitializeVariables();
-           
-            
-            //SetState(LightState.ACTIVE);
         }
 
         private void InitializeVariables()
         {
-         
+
             currentHealth = blackScriptableObject.Health;
             currentSpeed = blackScriptableObject.Speed;
+            blackView.SetHealthText();
         }
         public void OnPopAnimationPlayed()
         { }
@@ -65,6 +70,12 @@ namespace TrapLight.Player.Black
                 playerService.OnWallDrawing(blackView.transform.position);
             }
         }
+
+        public void SetHealthText(TMP_Text healthText)
+        {
+            healthText.text = currentHealth.ToString();
+        }
+
         public void Move(Rigidbody2D playerRigidbody)
         {
             GetInput();
@@ -72,8 +83,31 @@ namespace TrapLight.Player.Black
         }
 
         private void SetExplosive()
-        {
+        { 
+            if (IsExplosionEmpty) return;
+
+            explosionCount--;
             playerService.SetExplosive();
+            uiService.SetExplosionCountText(explosionCount);
+        }
+
+        public void SetExplosionCount(int explosionCount)
+        {
+            this.explosionCount = explosionCount;
+            uiService.SetExplosionCountText(explosionCount);
+        }
+
+        public void ResetHealth() => currentHealth = blackScriptableObject.Health;
+
+        public void TakeDamage(int damage)
+        {
+            currentHealth -= damage;
+            currentHealth = currentHealth < 0 ? 0 : currentHealth;
+            blackView.SetHealthText();
+            if (!IsAlive)
+            {
+                playerService.OnGameOver();
+            }
         }
     }
 }
