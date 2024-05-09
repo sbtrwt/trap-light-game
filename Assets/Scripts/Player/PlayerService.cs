@@ -18,6 +18,7 @@ namespace TrapLight.Player
         private WallSO wallSO;
         private WallPool wallPool;
         private List<WallController> allWalls;
+        private List<ExplosionController> allUsedExplosions;
         private WallController currentWallController;
         private UIService uiService;
         private EventService eventService;
@@ -41,6 +42,7 @@ namespace TrapLight.Player
             explosionPool = new ExplosionPool(explosionSO.ExplosionViewPrefab);
             wallPool = new WallPool(wallSO.WallView);
             allWalls = new List<WallController>();
+            allUsedExplosions = new List<ExplosionController>();
             SubscribeToEvents();
         }
         public void ReturnExplsionToPool(ExplosionController explosionController)
@@ -52,6 +54,7 @@ namespace TrapLight.Player
             ExplosionController explosionController = explosionPool.GetExplosion();
             explosionController.SetPosition(blackParticle.Position);
             explosionController.Init(this, explosionSO);
+            allUsedExplosions.Add(explosionController);
         }
 
         public void CreateWall()
@@ -83,14 +86,17 @@ namespace TrapLight.Player
 
         public void OnGameOver()
         {
-            
+            //uiService.SetGameOver(true);
+            eventService.OnGameOver.InvokeEvent(true);
         }
         public bool IsExplosionEmpty()
         {
-            return blackParticle.IsExplosionEmpty;
+            return blackParticle.IsExplosionEmpty && allUsedExplosions.Find(x=> x.IsActive) == null;
+            //return blackParticle.IsExplosionEmpty;
         }
         public void SetExplosionCount(int explosionCount)
         {
+            allUsedExplosions.Clear();
             blackParticle.SetExplosionCount(explosionCount);
         }
 
@@ -106,7 +112,9 @@ namespace TrapLight.Player
         public void OnWaveStart(int waveID)
         {
             ClearWalls();
+            blackParticle.ResetBlackParticle();
         }
+       
         ~ PlayerService()
         {
             eventService.OnWaveStart.RemoveListener(OnWaveStart);

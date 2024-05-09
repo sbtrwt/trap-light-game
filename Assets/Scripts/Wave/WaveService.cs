@@ -46,7 +46,10 @@ namespace TrapLight.Wave
             activeLights = new List<LightParticleController>();
         }
 
-        private void SubscribeToEvents() => eventService.OnMapSelected.AddListener(LoadWaveDataForMap);
+        private void SubscribeToEvents() { 
+            eventService.OnMapSelected.AddListener(LoadWaveDataForMap);
+            eventService.OnGameOver.AddListener(OnGameOver);
+        }
 
         private void LoadWaveDataForMap(int mapId)
         {
@@ -62,6 +65,8 @@ namespace TrapLight.Wave
         public void StartCurrentWave()
         {
             eventService.OnWaveStart.InvokeEvent(currentWaveId);
+
+            RemoveAllLightParticles();
             //activeLights = new List<LightParticleController>();
             SetCurrenctWaveData();
             SpawnLights(currentWaveData.ListOfLights);
@@ -74,6 +79,7 @@ namespace TrapLight.Wave
             foreach (LightParticleType lightType in lightsToSpawn)
             {
                 LightParticleController light = lightPool.GetLightParticle(lightType);
+                light.SetPosition(CalculateRandomSpawnPosition());
                 AddLight(light);
             }
         }
@@ -112,9 +118,38 @@ namespace TrapLight.Wave
 
         private bool IsLevelWon() => currentWaveId >= waveDatas.Count;
 
+        private void RemoveAllLightParticles()
+        {
+            foreach(var light in activeLights)
+            {
+                lightPool.ReturnItem(light);
+            }
+            activeLights.Clear();
+        }
+
+        private Vector2 CalculateRandomSpawnPosition()
+        {
+            // Get the boundaries of the visible game screen
+            float minX = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+            float maxX = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
+            float minY = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.5f, 0)).y;
+            float maxY = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y;
+
+            // Generate random values for X and Y coordinates within the screen boundaries
+            float randomX = UnityEngine.Random.Range(minX, maxX);
+            float randomY = UnityEngine.Random.Range(minY, maxY);
+
+            // Return the calculated random spawn position
+            return new Vector2(randomX, randomY);
+        }
+        private void OnGameOver(bool isGameOver)
+        {
+            uiService.SetGameOver(isGameOver && !HasCurrentWaveEnded());
+        }
         ~WaveService()
         {
             eventService.OnMapSelected.RemoveListener(LoadWaveDataForMap);
+            eventService.OnGameOver.RemoveListener(OnGameOver);
         }
     }
 }

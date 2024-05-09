@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 100
   Damage: 2
-  DefaultExplosion: 2
-  Speed: 30
+  Speed: 25
   BlackParticlePrefab: {fileID: 5820751705566056601, guid: c8ebbed6f74351645b5b9f379d3452cc, type: 3}
-  ExplosionViewPrefab: {fileID: -4003374926617912556, guid: c8c9b0d32a38f6a4bbd37e02cdbfbaa2, type: 3}
+  Position: {x: 18.8, y: 3.7}

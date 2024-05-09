@@ -1,4 +1,5 @@
-﻿using TrapLight.Player.Black;
+﻿using TMPro;
+using TrapLight.Player.Black;
 using UnityEngine;
 
 namespace TrapLight.Wave.Light
@@ -7,13 +8,10 @@ namespace TrapLight.Wave.Light
     {
         private LightParticleController controller;
 
-        private SpriteRenderer spriteRenderer;
-        private Animator animator;
-        private void Awake()
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            animator = GetComponent<Animator>();
-        }
+        [SerializeField] private SpriteRenderer spriteRenderer;
+      
+        [SerializeField] private TMP_Text healthText;
+    
         public void SetController(LightParticleController controller)
         {
             this.controller = controller;
@@ -24,19 +22,9 @@ namespace TrapLight.Wave.Light
         }
         public void SetRenderer(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
 
-        public void PopLightParticle()
-        {
-            animator.enabled = true;
-            animator.Play("Pop", 0);
-        }
-
-        public void PopAnimationPlayed()
-        {
-            spriteRenderer.sprite = null;
-            gameObject.SetActive(false);
-            controller.OnPopAnimationPlayed();
-        }
-
+        public void SetColor(Color colortToSet) => spriteRenderer.color = colortToSet;
+        public void SetHealth(string healthToSet) => healthText.text = healthToSet;
+      
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.collider.gameObject.CompareTag(GlobalConstant.BLACK_TAG))

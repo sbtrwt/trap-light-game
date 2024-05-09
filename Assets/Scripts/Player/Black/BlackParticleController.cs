@@ -44,8 +44,6 @@ namespace TrapLight.Player.Black
             currentSpeed = blackScriptableObject.Speed;
             blackView.SetHealthText();
         }
-        public void OnPopAnimationPlayed()
-        { }
 
         private void GetInput()
         {
@@ -97,8 +95,8 @@ namespace TrapLight.Player.Black
             uiService.SetExplosionCountText(explosionCount);
         }
 
-        public void ResetHealth() => currentHealth = blackScriptableObject.Health;
-
+        private void ResetHealth() => currentHealth = blackScriptableObject.Health;
+        private void ResetPosition() => blackView.transform.position = blackScriptableObject.Position;
         public void TakeDamage(int damage)
         {
             currentHealth -= damage;
@@ -108,6 +106,12 @@ namespace TrapLight.Player.Black
             {
                 playerService.OnGameOver();
             }
+        }
+        public void ResetBlackParticle()
+        {
+            ResetHealth();
+            ResetPosition();
+            blackView.SetHealthText();
         }
     }
 }

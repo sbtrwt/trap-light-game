@@ -12,6 +12,7 @@ namespace TrapLight.Wave.Light
         public int Reward;
         public float Speed;
         public Sprite Sprite;
+        public Color ParticleColor;
         public List<LightParticleType> LayeredLight;
         public float LayerLightSpawnRate;
     }

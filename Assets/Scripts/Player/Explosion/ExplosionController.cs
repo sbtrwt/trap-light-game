@@ -58,6 +58,8 @@ namespace TrapLight.Player.Explosion
                 blackController.TakeDamage(explosionSO.Damage);
             }
         }
+        public bool IsActive => currentState == ExplosionState.ACTIVE;
+
         private enum ExplosionState
         {
             ACTIVE,

@@ -14,8 +14,10 @@ namespace TrapLight.UI
 
         [Header("Level Selection Panel")]
         [SerializeField] private GameObject levelSelectionPanel;
-        [SerializeField] private Button map1Button;
-        [SerializeField] private MapButton mapButton;
+        //[SerializeField] private Button map1Button;
+        [SerializeField] private MapButton mapButton1;
+        //[SerializeField] private Button map2Button;
+        [SerializeField] private MapButton mapButton2;
 
         [Header("Wave Start Panel")]
         [SerializeField] private GameObject waveStartPanel;
@@ -37,6 +39,13 @@ namespace TrapLight.UI
         [SerializeField] private GameObject pausePanel;
         [SerializeField] private Button resumeButton;
         [SerializeField] private Button resumeLobbyButton;
+
+        [Header("GameOver Panel")]
+        [SerializeField] private GameObject gameOverPanel;
+        [SerializeField] private Button gameOverRestartButton;
+        [SerializeField] private Button gameOverLobbyButton;
+        [SerializeField] private TMP_Text gameOvertext;
+
         private void Start()
         {
             levelSelectionPanel.SetActive(true);
@@ -47,12 +56,16 @@ namespace TrapLight.UI
             this.eventService = eventService;
             this.waveService = waveService;
 
-            mapButton.Init(eventService);
+            mapButton1.Init(eventService);
+            mapButton2.Init(eventService);
+
             nextWaveButton.onClick.AddListener(OnStartNextWave);
             lobbyButton.onClick.AddListener(OnClickLobby);
             resumeLobbyButton.onClick.AddListener(OnClickLobby);
             pauseButton.onClick.AddListener(OnPauseClick);
             resumeButton.onClick.AddListener(OnResumeClick);
+            gameOverLobbyButton.onClick.AddListener(OnClickLobby);
+            gameOverRestartButton.onClick.AddListener(OnRestartClick);
 
             SubscribeToEvents();
         }
@@ -77,18 +90,18 @@ namespace TrapLight.UI
             notificationPanel.SetActive(isShow);
             textMessage.text = textToShow;
         }
-        public void OnClickLobby()
+        private void OnClickLobby()
         {
             Time.timeScale = 1;
             SceneManager.LoadScene(GlobalConstant.LOBBY_INDEX);
         }
 
-        public void OnResumeClick()
+        private void OnResumeClick()
         {
             Time.timeScale = 1;
             pausePanel.SetActive(false);
         }
-        public void OnPauseClick()
+        private void OnPauseClick()
         {
             Time.timeScale = 0;
             pausePanel.SetActive(true);
@@ -103,6 +116,16 @@ namespace TrapLight.UI
             waveStartText.text = $"Wave : {waveID + 1}";
             waveText.text = $"Wave : {waveID}";
 
+        }
+
+        public void SetGameOver(bool isShow)
+        {
+            gameOverPanel.SetActive(isShow);
+        }
+        private void OnRestartClick()
+        {
+            gameOverPanel.SetActive(false);
+            waveService.StartCurrentWave();
         }
     }
 }

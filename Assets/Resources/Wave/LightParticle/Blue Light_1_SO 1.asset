@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c6ed7af99ab6134493b8ea9c1212c95, type: 3}
-  m_Name: Light_1_SO
+  m_Name: Blue Light_1_SO 1
   m_EditorClassIdentifier: 
-  Type: 0
-  Health: 5
-  Damage: 5
+  Type: 1
+  Health: 60
+  Damage: 10
   Reward: 1
   Speed: 1
   Sprite: {fileID: 2858224463199393476, guid: 61ea8df715112bb469c640e1506bca1c, type: 3}
+  ParticleColor: {r: 0.17903166, g: 0.41207933, b: 0.8867924, a: 1}
   LayeredLight: 
-  LayerLightSpawnRate: 0.2
+  LayerLightSpawnRate: 1

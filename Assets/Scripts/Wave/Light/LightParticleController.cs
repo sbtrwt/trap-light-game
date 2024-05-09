@@ -29,11 +29,13 @@ namespace TrapLight.Wave.Light
             InitializeVariables();
             SetState(LightParticleState.ACTIVE);
             lightView.gameObject.SetActive(true);
+            lightView.SetHealth(lightScriptableObject.Health.ToString());
         }
         private void InitializeVariables()
         {
             lightView.SetRenderer(lightScriptableObject.Sprite);
             currentHealth = lightScriptableObject.Health;
+            lightView.SetColor(lightScriptableObject.ParticleColor);
            
         }
         private void SetState(LightParticleState state) => currentState = state;
@@ -57,20 +59,19 @@ namespace TrapLight.Wave.Light
         {
             int reducedHealth = currentHealth - damageToTake;
             currentHealth = reducedHealth <= 0 ? 0 : reducedHealth;
-
+            lightView.SetHealth(currentHealth.ToString());
             if (currentHealth <= 0 && currentState == LightParticleState.ACTIVE)
             {
                 PopLightParticle();
                 ResetLightParticle();
-               
             }
         }
 
         private void ResetLightParticle()
         {
             waveService.RemoveLightParticle(this);
-         
             lightView.gameObject.SetActive(false);
+           
         }
         public int GiveDamage() =>  lightScriptableObject.Damage;
         public void SetPosition(Vector3 spawnPosition)

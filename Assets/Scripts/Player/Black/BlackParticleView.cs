@@ -28,19 +28,6 @@ namespace TrapLight.Player.Black
             this.controller = controller;
         }
 
-        public void SetRenderer(Sprite spriteToSet) => spriteRenderer.sprite = spriteToSet;
-        public void PopBlackParticle()
-        {
-            animator.enabled = true;
-            animator.Play("Pop", 0);
-        }
-        public void PopAnimationPlayed()
-        {
-            spriteRenderer.sprite = null;
-            gameObject.SetActive(false);
-            controller.OnPopAnimationPlayed();
-        }
-
         public BlackParticleController GetController()
         {
             return controller;
