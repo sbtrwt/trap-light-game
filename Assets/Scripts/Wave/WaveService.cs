@@ -52,7 +52,6 @@ namespace TrapLight.Wave
         {
             currentWaveId = 0;
             waveDatas = waveScriptableObject.WaveConfigurations.Find(config => config.MapID == mapId).WaveDatas;
-           
         }
 
         public void StarNextWave()
@@ -62,6 +61,7 @@ namespace TrapLight.Wave
         }
         public void StartCurrentWave()
         {
+            eventService.OnWaveStart.InvokeEvent(currentWaveId);
             //activeLights = new List<LightParticleController>();
             SetCurrenctWaveData();
             SpawnLights(currentWaveData.ListOfLights);
@@ -111,5 +111,10 @@ namespace TrapLight.Wave
         private bool HasCurrentWaveEnded() => activeLights.Count == 0;
 
         private bool IsLevelWon() => currentWaveId >= waveDatas.Count;
+
+        ~WaveService()
+        {
+            eventService.OnMapSelected.RemoveListener(LoadWaveDataForMap);
+        }
     }
 }

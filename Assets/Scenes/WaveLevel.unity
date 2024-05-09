@@ -919,11 +919,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1272540276}
   - {fileID: 1122132362}
   - {fileID: 463083486}
   - {fileID: 755638062}
   - {fileID: 1943671444}
+  - {fileID: 1272540276}
   - {fileID: 305223291}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -949,6 +949,7 @@ MonoBehaviour:
   mapButton: {fileID: 707018610}
   waveStartPanel: {fileID: 1943671443}
   nextWaveButton: {fileID: 1527075678644033304}
+  waveStartText: {fileID: 1066729116}
   notificationPanel: {fileID: 305223290}
   lobbyButton: {fileID: 1418041453}
   textMessage: {fileID: 1679248417}
@@ -2531,7 +2532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.381132, g: 0.3645923, b: 0.3645923, a: 0.5686275}
+  m_Color: {r: 0.381132, g: 0.3645923, b: 0.3645923, a: 0.99607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

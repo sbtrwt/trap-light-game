@@ -15,6 +15,7 @@ namespace TrapLight.Player.Wall
         }
         public void Init()
         {
+            wallView.gameObject.SetActive(true);
             wallView.Init();
         }
         public void OnWallDrawStart(Vector3 positionToSet)
@@ -40,26 +41,35 @@ namespace TrapLight.Player.Wall
         }
         public void AddColliderToLine(BoxCollider2D collider2D)
         {
-           
-            float lineLength = Vector3.Distance(startPosition, endPosition); 
+            Debug.Log("Inside add collider ");
+            Debug.Log("Inside add collider "+ startPosition +  endPosition);
 
-            collider2D.size = new Vector3(lineLength, 0.1f, 1f); 
+            float lineLength = Vector3.Distance(startPosition, endPosition);
+
+            collider2D.size = new Vector3(lineLength, 0.1f, 1f);
             Vector3 midPoint = (startPosition + endPosition) / 2;
-            collider2D.transform.position = midPoint; 
-                                              
+            collider2D.transform.position = midPoint;
+
             float angle = (Mathf.Abs(startPosition.y - endPosition.y) / Mathf.Abs(startPosition.x - endPosition.x));
+            Debug.Log("Angle : " + angle);
             if ((startPosition.y < endPosition.y && startPosition.x > endPosition.x) || (endPosition.y < startPosition.y && endPosition.x > startPosition.x))
             {
                 angle *= -1;
             }
+            Debug.Log("Angle : " + angle);
             angle = Mathf.Rad2Deg * Mathf.Atan(angle);
-
+            Debug.Log("Angle : " + angle);
             if (collider2D != null && !float.IsNaN(angle))
             {
                 collider2D.transform.Rotate(0, 0, angle);
-              
+                Debug.Log("Angle set : " + angle);
             }
 
+        }
+
+        public void RemoveWall()
+        {
+            wallView.gameObject.SetActive(false);
         }
     }
 }

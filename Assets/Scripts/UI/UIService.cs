@@ -20,6 +20,7 @@ namespace TrapLight.UI
         [Header("Wave Start Panel")]
         [SerializeField] private GameObject waveStartPanel;
         [SerializeField] private Button nextWaveButton;
+        [SerializeField] private TMP_Text waveStartText;
 
         [Header("Notification Panel")]
         [SerializeField] private GameObject notificationPanel;
@@ -38,16 +39,14 @@ namespace TrapLight.UI
         [SerializeField] private Button resumeLobbyButton;
         private void Start()
         {
-           
             levelSelectionPanel.SetActive(true);
-
         }
 
         public void Init(EventService eventService, WaveService waveService)
         {
             this.eventService = eventService;
             this.waveService = waveService;
-            
+
             mapButton.Init(eventService);
             nextWaveButton.onClick.AddListener(OnStartNextWave);
             lobbyButton.onClick.AddListener(OnClickLobby);
@@ -64,7 +63,7 @@ namespace TrapLight.UI
         {
             levelSelectionPanel.SetActive(false);
             waveStartPanel.SetActive(true);
-           
+
         }
         public void OnStartNextWave()
         {
@@ -73,22 +72,25 @@ namespace TrapLight.UI
             waveService.StarNextWave();
         }
         public void ShowNextWavePanel(bool isShow) => waveStartPanel.SetActive(isShow);
-        public void ShowNotificationPanel(bool isShow, string textToShow) 
+        public void ShowNotificationPanel(bool isShow, string textToShow)
         {
             notificationPanel.SetActive(isShow);
             textMessage.text = textToShow;
         }
         public void OnClickLobby()
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(GlobalConstant.LOBBY_INDEX);
         }
 
         public void OnResumeClick()
         {
+            Time.timeScale = 1;
             pausePanel.SetActive(false);
         }
         public void OnPauseClick()
         {
+            Time.timeScale = 0;
             pausePanel.SetActive(true);
         }
 
@@ -98,7 +100,9 @@ namespace TrapLight.UI
         }
         public void SetWaveText(int waveID)
         {
-            waveText.text = $"wave:{waveID}" ;
+            waveStartText.text = $"Wave : {waveID + 1}";
+            waveText.text = $"Wave : {waveID}";
+
         }
     }
 }

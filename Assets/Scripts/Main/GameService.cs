@@ -48,7 +48,7 @@ namespace TrapLight
         {
             mapService.Init(eventService);
             waveService.Init( mapService,  eventService, uiService, playerService);
-            playerService.Init(uiService);
+            playerService.Init(uiService, eventService);
             UIService.Init(eventService, waveService);
             uiService.SubscribeToEvents();
         }

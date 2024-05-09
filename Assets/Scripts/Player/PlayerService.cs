@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TrapLight.Events;
 using TrapLight.Player.Black;
 using TrapLight.Player.Explosion;
 using TrapLight.Player.Wall;
@@ -19,21 +20,28 @@ namespace TrapLight.Player
         private List<WallController> allWalls;
         private WallController currentWallController;
         private UIService uiService;
+        private EventService eventService;
         public PlayerService(PlayerSO playerSO, ExplosionSO explosionSO, WallSO wallSO)
         {
             this.playerSO = playerSO;
             this.explosionSO = explosionSO;
             this.wallSO = wallSO;
             blackParticle = new BlackParticleController(playerSO.BlackParticleSO.BlackParticlePrefab );
+           
         }
-
-        public void Init(UIService uiService)
+        private void SubscribeToEvents() 
+        { 
+            eventService.OnWaveStart.AddListener(OnWaveStart); 
+        }
+        public void Init(UIService uiService, EventService eventService)
         {
+            this.eventService = eventService;
             this.uiService = uiService;
             blackParticle.Init(playerSO.BlackParticleSO, this, uiService);
             explosionPool = new ExplosionPool(explosionSO.ExplosionViewPrefab);
             wallPool = new WallPool(wallSO.WallView);
             allWalls = new List<WallController>();
+            SubscribeToEvents();
         }
         public void ReturnExplsionToPool(ExplosionController explosionController)
         {
@@ -86,5 +94,22 @@ namespace TrapLight.Player
             blackParticle.SetExplosionCount(explosionCount);
         }
 
+        public void ClearWalls()
+        { 
+            foreach(var wall in allWalls)
+            {
+                wall.RemoveWall();
+                wallPool.ReturnItem(wall);
+            }
+        }
+
+        public void OnWaveStart(int waveID)
+        {
+            ClearWalls();
+        }
+        ~ PlayerService()
+        {
+            eventService.OnWaveStart.RemoveListener(OnWaveStart);
+        }
     }
 }

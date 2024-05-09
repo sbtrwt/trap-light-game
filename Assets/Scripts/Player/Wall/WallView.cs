@@ -15,6 +15,7 @@ namespace TrapLight.Player.Wall
         {
             boxCollider2D = GetComponent<BoxCollider2D>();
             lineRenderer = GetComponent<LineRenderer>();
+            transform.rotation = new Quaternion();
         }
         public void SetController(WallController controller)
         {
