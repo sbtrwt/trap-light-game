@@ -14,7 +14,7 @@ namespace TrapLight.Sound
             this.soundScriptableObject = soundScriptableObject;
             audioEffects = audioEffectSource;
             backgroundMusic = bgMusicSource;
-            PlaybackgroundMusic(SoundType.BackgroundMusic, true);
+            //PlaybackgroundMusic(SoundType.BackgroundMusic, true);
         }
 
         public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
