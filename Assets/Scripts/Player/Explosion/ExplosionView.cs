@@ -30,10 +30,10 @@ namespace TrapLight.Player.Explosion
 
         private void Detonate()
         {
-            //SoundManager.Instance.Play(SoundType.Explosion);
-
             explosionEffect = Instantiate(explosionEffectPrefab);
             explosionEffect.transform.position = gameObject.transform.position;
+            controller.OnCollision();
+
             DetectExplosionEffect();
            
             controller.ResetExplosion();

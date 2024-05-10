@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using TrapLight.Player.Explosion;
+using TrapLight.Sound;
 using TrapLight.UI;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace TrapLight.Player.Black
         private BlackParticleSO blackScriptableObject;
         private PlayerService playerService;
         private UIService uiService;
+       
 
         private int currentHealth;
         private float horizontalAxis;
@@ -33,6 +35,7 @@ namespace TrapLight.Player.Black
             this.blackScriptableObject = blackScriptableObject;
             this.playerService = playerService;
             this.uiService = uIService;
+          
 
             InitializeVariables();
         }
@@ -107,6 +110,7 @@ namespace TrapLight.Player.Black
                 playerService.OnGameOver();
             }
         }
+      
         public void ResetBlackParticle()
         {
             ResetHealth();

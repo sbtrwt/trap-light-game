@@ -4,6 +4,7 @@ using TrapLight.Events;
 using TrapLight.Player.Black;
 using TrapLight.Player.Explosion;
 using TrapLight.Player.Wall;
+using TrapLight.Sound;
 using TrapLight.UI;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace TrapLight.Player
         private WallController currentWallController;
         private UIService uiService;
         private EventService eventService;
+        private SoundService soundService;
         public PlayerService(PlayerSO playerSO, ExplosionSO explosionSO, WallSO wallSO)
         {
             this.playerSO = playerSO;
@@ -34,10 +36,11 @@ namespace TrapLight.Player
         { 
             eventService.OnWaveStart.AddListener(OnWaveStart); 
         }
-        public void Init(UIService uiService, EventService eventService)
+        public void Init(UIService uiService, EventService eventService, SoundService soundService)
         {
             this.eventService = eventService;
             this.uiService = uiService;
+            this.soundService = soundService;
             blackParticle.Init(playerSO.BlackParticleSO, this, uiService);
             explosionPool = new ExplosionPool(explosionSO.ExplosionViewPrefab);
             wallPool = new WallPool(wallSO.WallView);
@@ -51,9 +54,10 @@ namespace TrapLight.Player
         }
         public void SetExplosive()
         {
+            soundService.PlaySoundEffects(SoundType.SetExplosive);
             ExplosionController explosionController = explosionPool.GetExplosion();
             explosionController.SetPosition(blackParticle.Position);
-            explosionController.Init(this, explosionSO);
+            explosionController.Init(this, explosionSO, soundService);
             allUsedExplosions.Add(explosionController);
         }
 

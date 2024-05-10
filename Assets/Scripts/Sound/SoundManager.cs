@@ -5,13 +5,6 @@ using UnityEngine;
 
 namespace TrapLight.Sound
 {
-    public enum SoundType
-    {
-        ButtonClick,
-        Music,
-        Explosion,
-        SetExplosive
-    }
     public class SoundManager : MonoBehaviour
     {
         public static SoundManager Instance { get; private set; }
@@ -39,7 +32,7 @@ namespace TrapLight.Sound
         }
         private void Start()
         {
-            PlayMusic(SoundType.Music);
+            PlayMusic(SoundType.BackgroundMusic);
         }
 
         public void PlayMusic(SoundType soundType)
