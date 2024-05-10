@@ -2524,6 +2524,22 @@ PrefabInstance:
       propertyPath: musicVolume
       value: 0.514
       objectReference: {fileID: 0}
+    - target: {fileID: 8474866457652923746, guid: eff88c517c8ed2b4aa411184dd7f35c3, type: 3}
+      propertyPath: Sounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474866457652923746, guid: eff88c517c8ed2b4aa411184dd7f35c3, type: 3}
+      propertyPath: Sounds.Array.data[2].soundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6be7afcfbcf68dd4ab79d3f491f51d36, type: 3}
+    - target: {fileID: 8474866457652923746, guid: eff88c517c8ed2b4aa411184dd7f35c3, type: 3}
+      propertyPath: Sounds.Array.data[3].soundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4b2ca15a0fa1d3947aaa4e544ba264ce, type: 3}
+    - target: {fileID: 8474866457652923746, guid: eff88c517c8ed2b4aa411184dd7f35c3, type: 3}
+      propertyPath: Sounds.Array.data[3].soundType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
