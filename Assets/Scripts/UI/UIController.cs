@@ -19,6 +19,7 @@ namespace TrapLight.UI
         [SerializeField] private Button buttonResumeLobby;
         [SerializeField] private GameObject gamePauseUI;
         [SerializeField] private Button buttonSound;
+        
         private void Awake()
         {
             if (Instance == null)
@@ -47,6 +48,8 @@ namespace TrapLight.UI
 
             if (buttonSound)
                 buttonSound.onClick.AddListener(OnClickSound);
+
+           
         }
 
         private void OnClickStart()
@@ -80,5 +83,6 @@ namespace TrapLight.UI
         {
             SoundManager.Instance.ToggleMusic();
         }
+      
     }
 }

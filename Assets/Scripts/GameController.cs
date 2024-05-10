@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TrapLight.Light;
-using UnityEngine.SceneManagement;
-using System;
-using TrapLight.UI;
 using TMPro;
+using TrapLight.Player.Light;
+using TrapLight.UI;
+using UnityEngine;
 
 namespace TrapLight
 {
@@ -31,7 +29,7 @@ namespace TrapLight
         }
         private void Start()
         {
-           StartCoroutine( ResetWave(waveCount));
+            StartCoroutine(ResetWave(waveCount));
         }
         public IEnumerator ResetWave(int wave)
         {
@@ -47,7 +45,7 @@ namespace TrapLight
             UIController.Instance.SetGameOverUI(false);
             yield return new WaitForSeconds(4);
 
-           
+
             InitLightParticle();
             blackParticle.UpgradeLevel(waveCount);
 
@@ -56,7 +54,7 @@ namespace TrapLight
         }
         public void ResetWave()
         {
-            StartCoroutine( ResetWave(waveCount));
+            StartCoroutine(ResetWave(waveCount));
         }
 
         private void InitLightParticle()
@@ -71,15 +69,15 @@ namespace TrapLight
 
         public void ValidateGame()
         {
-            
-            if (blackParticle.GetMaxExplosiveCount() <= currentExplosionCount && blackParticle.GetExplosiveCount() <= 0 && currentLightParticleCount > 0 )
+
+            if (blackParticle.GetMaxExplosiveCount() <= currentExplosionCount && blackParticle.GetExplosiveCount() <= 0 && currentLightParticleCount > 0)
             {
                 blackParticle.DeleteAllWalls();
                 UIController.Instance.SetGameOverUI(true);
             }
         }
 
-        public void IncrementExplosionCount() 
+        public void IncrementExplosionCount()
         {
             currentExplosionCount++;
         }
@@ -88,7 +86,7 @@ namespace TrapLight
             currentLightParticleCount--;
             if (currentLightParticleCount <= 0)
             {
-              StartCoroutine(  ResetWave(++waveCount));
+                StartCoroutine(ResetWave(++waveCount));
             }
         }
 
@@ -108,7 +106,7 @@ namespace TrapLight
         private void RefreshWaveText()
         {
             if (waveText != null)
-                waveText.text ="Wave : "+ waveCount.ToString();
+                waveText.text = "Wave : " + waveCount.ToString();
         }
     }
 }

@@ -1,6 +1,5 @@
 
 using UnityEngine;
-using TrapLight.Light;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ namespace TrapLight
 {
     public class TutorialController : MonoBehaviour
     {
-      
+
         [SerializeField] private GameObject lightParticlePrefab;
 
         [SerializeField] private GameObject fillRightArrow;
@@ -71,7 +70,7 @@ namespace TrapLight
 
         private void HandleDrawWall()
         {
-            if (Input.GetKeyDown(KeyCode.Space) )
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 fillSpaceKey.SetActive(true);
             }
@@ -84,7 +83,7 @@ namespace TrapLight
         private void OnClickNext()
         {
             currentIndex++;
-            if(tutorialContainers.Length <= currentIndex)
+            if (tutorialContainers.Length <= currentIndex)
             {
                 currentIndex = 0;
             }
@@ -93,7 +92,7 @@ namespace TrapLight
             GUI.FocusControl(null);
         }
 
-        private void SetCurrentTutorial() 
+        private void SetCurrentTutorial()
         {
             if (tutorialContainers == null) return;
 

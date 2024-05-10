@@ -11,12 +11,14 @@ namespace TrapLight.UI
         [SerializeField] private Button buttonTutorial;
         [SerializeField] private Button buttonExit;
         [SerializeField] private Button buttonSound;
+        [SerializeField] private Button buttonMap;
         private void Start()
         {
             buttonStart.onClick.AddListener(OnClickStart);
             buttonTutorial.onClick.AddListener(OnClickTutorial);
             buttonExit.onClick.AddListener(OnClickExit);
             buttonSound.onClick.AddListener(OnClickSound);
+            buttonMap.onClick.AddListener(OnClickMap);
         }
 
         private void OnClickStart()
@@ -34,6 +36,11 @@ namespace TrapLight.UI
         private void OnClickSound()
         {
             SoundManager.Instance.ToggleMusic();
+        }
+        private void OnClickMap()
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(GlobalConstant.MAP_INDEX);
         }
     }
 }
