@@ -16,6 +16,7 @@ MonoBehaviour:
   WaveConfigurations:
   - {fileID: 11400000, guid: 7e902ce8a9f5d5c4097026936594b26c, type: 2}
   - {fileID: 11400000, guid: df3274bd25d5ff643afac0c97d6ee984, type: 2}
+  - {fileID: 11400000, guid: eb1e13a43e3790e44a9c2a0e20d2905d, type: 2}
   LightPrefab: {fileID: -3948841537707860504, guid: c3d52b05f2d32e748b10fc53bcf47fc8, type: 3}
   LightScriptableObjects:
   - {fileID: 11400000, guid: 8726227b7b78eb843a0d834914b24cdb, type: 2}
