@@ -8,6 +8,7 @@ Avoid the light particle and trap them using your line drawing strategy
 - Object pooling
 - ScriptableObject
 - MVC architecture
+- Singleton design pattern
   
 ### HOW TO PLAY
 - Player can move with Arrow keys
