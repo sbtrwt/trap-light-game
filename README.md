@@ -17,7 +17,7 @@ Avoid the light particle and trap them using your line drawing strategy
 - Clear all light particle and follow endless waves
 
 ### Lobby 
-![Screenshot 2023-11-22 181822](https://github.com/sbtrwt/trap-light-game/assets/5724149/da544923-b3e4-401c-b72a-f04c031ebd09)
+![Screenshot 2024-05-11 124808](https://github.com/sbtrwt/trap-light-game/assets/5724149/02e259d3-3250-4fb2-a402-0aac93e7bdc5)
 
 ### Select Level
 ![Screenshot 2024-05-11 124100](https://github.com/sbtrwt/trap-light-game/assets/5724149/f2bcd75f-62a0-4b2d-a70b-c628c8b7006a)
