@@ -7,7 +7,7 @@ Avoid the light particle and trap them using your line drawing strategy
 - Observer design pattern
 - Object pooling
 - ScriptableObject
-- MVCS architecture
+- MVC-S architecture
 - Singleton design pattern
   
 ### HOW TO PLAY
