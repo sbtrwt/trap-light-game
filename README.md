@@ -1,7 +1,7 @@
 # trap-light-game
 Avoid the light particle and trap them using your line drawing strategy
 
-## Implementation
+## Code Implementation
 - Dependency Injection
 - Service locator
 - Observer design pattern
