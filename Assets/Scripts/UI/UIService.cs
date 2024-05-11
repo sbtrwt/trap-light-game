@@ -18,6 +18,10 @@ namespace TrapLight.UI
         [SerializeField] private MapButton mapButton1;
         //[SerializeField] private Button map2Button;
         [SerializeField] private MapButton mapButton2;
+        [SerializeField] private MapButton mapButton3;
+        [SerializeField] private Button exitButton;
+        [SerializeField] private Button helpButton;
+        [SerializeField] private Button selectionLobbyButton;
 
         [Header("Wave Start Panel")]
         [SerializeField] private GameObject waveStartPanel;
@@ -58,6 +62,7 @@ namespace TrapLight.UI
 
             mapButton1.Init(eventService);
             mapButton2.Init(eventService);
+            mapButton3.Init(eventService);
 
             nextWaveButton.onClick.AddListener(OnStartNextWave);
             lobbyButton.onClick.AddListener(OnClickLobby);
@@ -66,6 +71,7 @@ namespace TrapLight.UI
             resumeButton.onClick.AddListener(OnResumeClick);
             gameOverLobbyButton.onClick.AddListener(OnClickLobby);
             gameOverRestartButton.onClick.AddListener(OnRestartClick);
+            selectionLobbyButton.onClick.AddListener(OnClickLobby);
 
             SubscribeToEvents();
         }
