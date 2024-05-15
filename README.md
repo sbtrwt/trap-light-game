@@ -1,6 +1,8 @@
 # trap-light-game
 Avoid the light particle and trap them using your line drawing strategy
 
+I am using my own concepts to create this game. I have been written all code from scratch.
+
 ## Code Implementation
 - Dependency Injection
 - Service locator
