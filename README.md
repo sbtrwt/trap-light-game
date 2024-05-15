@@ -1,7 +1,7 @@
 # trap-light-game
 Avoid the light particle and trap them using your line drawing strategy
 
-I have used my own ideas and concepts to create all game mechanics of this game. I have been written all code from scratch.
+I have used my own ideas and concepts to create all game mechanics of this game. I tried to implement all learning of my good practice and past coding experience.
 
 ## Code Implementation
 - Dependency Injection
