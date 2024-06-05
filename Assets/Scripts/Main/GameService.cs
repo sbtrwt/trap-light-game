@@ -55,9 +55,6 @@ namespace TrapLight
             uiService.SubscribeToEvents();
         }
 
-        private void Update()
-        {
-           
-        }
+       
     }
 }
